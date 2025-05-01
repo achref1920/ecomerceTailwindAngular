@@ -1,0 +1,190 @@
+<app-navbar></app-navbar>
+<div class="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 flex items-center justify-center p-4">
+  <div class="max-w-md w-full bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all hover:scale-105 duration-300">    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-center py-6">
+      <h4 class="text-2xl font-bold">Join the Adventure</h4>
+      <p class="text-sm mt-1 opacity-80">Create your account and start shopping!</p>
+    </div>
+    <div class="p-6">
+      <form #registerForm="ngForm" (ngSubmit)="register()" novalidate>
+        <!-- msgs -->
+        <div *ngIf="showMsg" class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">
+          <div class="flex">
+            <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+            <div>
+              <p class="font-bold">Success</p>
+              <p class="text-sm">You have successfully registered!</p>
+            </div>
+          </div>
+        </div>
+        <!-- Full Name -->
+        <div class="mb-5 relative">
+          <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+          <div class="flex items-center relative">
+            <span class="absolute left-3 text-gray-500"><i class="bi bi-person-fill"></i></span>
+            <input
+              type="text"
+              class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+              id="name"
+              [(ngModel)]="user.username"
+              name="name"
+              #nameRef="ngModel"
+              required
+              minlength="3"
+              maxlength="50"
+              [ngClass]="{'border-red-500': nameRef.invalid && nameRef.touched}"
+              placeholder="Full Name"
+            />
+          </div>
+          <div class="text-red-500 text-xs mt-1 transition-opacity duration-200" [ngClass]="{'opacity-100': nameRef.invalid && nameRef.touched, 'opacity-0': !(nameRef.invalid && nameRef.touched)}">
+            <span *ngIf="nameRef.errors?.['required']">Name is required</span>
+            <span *ngIf="nameRef.errors?.['minlength']">Name must be at least 3 characters</span>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-5 relative">
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+          <div class="flex items-center relative">
+            <span class="absolute left-3 text-gray-500"><i class="bi bi-envelope-fill"></i></span>
+            <input
+              type="email"
+              class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+              id="email"
+              [(ngModel)]="user.email"
+              name="email"
+              #emailRef="ngModel"
+              required
+              email
+              maxlength="100"
+              [ngClass]="{'border-red-500': emailRef.invalid && emailRef.touched, 'border-green-500': !emailRef.invalid && emailRef.touched}"
+              placeholder="Email Address"
+            />
+          </div>
+          <div class="text-red-500 text-xs mt-1 transition-opacity duration-200" [ngClass]="{'opacity-100': emailRef.touched && emailRef.invalid, 'opacity-0': !(emailRef.touched && emailRef.invalid)}">
+            <span *ngIf="emailRef.errors?.['required']">Email is required</span>
+            <span *ngIf="emailRef.errors?.['email']">Enter a valid email</span>
+          </div>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="mb-5 relative">
+          <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+          <div class="flex items-center relative">
+            <span class="absolute left-3 text-gray-500"><i class="bi bi-telephone-fill"></i></span>
+            <input
+              type="tel"
+              class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+              id="phone"
+              [(ngModel)]="user.phone"
+              name="phone"
+              #phoneRef="ngModel"
+              required
+              pattern="^[0-9]{8}$"
+              maxlength="8"
+              placeholder="12345678"
+              [ngClass]="{'border-red-500': phoneRef.invalid && phoneRef.touched}"
+            />
+          </div>
+          <div class="text-red-500 text-xs mt-1 transition-opacity duration-200" [ngClass]="{'opacity-100': phoneRef.invalid && phoneRef.touched, 'opacity-0': !(phoneRef.invalid && phoneRef.touched)}">
+            <span *ngIf="phoneRef.errors?.['required']">Phone is required</span>
+            <span *ngIf="phoneRef.errors?.['pattern']">Enter a valid 8-digit phone number</span>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-5 relative">
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+          <div class="flex items-center relative">
+            <span class="absolute left-3 text-gray-500"><i class="bi bi-lock-fill"></i></span>
+            <input
+              [type]="hide ? 'password' : 'text'"
+              class="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+              id="password"
+              [(ngModel)]="user.password"
+              name="password"
+              #passwordRef="ngModel"
+              required
+              minlength="6"
+              maxlength="50"
+              [ngClass]="{'border-red-500': passwordRef.invalid && passwordRef.touched}"
+              placeholder="Password"
+            />
+            <span
+              class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500 hover:text-indigo-600 transition-colors duration-200"
+              (click)="hidePassword()"
+              aria-label="Toggle password visibility"
+            >
+              <i class="bi" [ngClass]="hide ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
+            </span>
+          </div>
+          <div class="text-red-500 text-xs mt-1 transition-opacity duration-200" [ngClass]="{'opacity-100': passwordRef.invalid && passwordRef.touched, 'opacity-0': !(passwordRef.invalid && passwordRef.touched)}">
+            <span *ngIf="passwordRef.errors?.['required']">Password is required</span>
+            <span *ngIf="passwordRef.errors?.['minlength']">Password must be at least 6 characters</span>
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="mb-5 relative">
+          <label for="confirm_password" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+          <div class="flex items-center relative">
+            <span class="absolute left-3 text-gray-500"><i class="bi bi-lock-fill"></i></span>
+            <input
+              type="password"
+              class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+              id="confirm_password"
+              [(ngModel)]="confirmPassword"
+              (ngModelChange)="validatePasswordMatch()"
+              name="confirm_password"
+              #confirmPasswordRef="ngModel"
+              required
+              maxlength="50"
+              [ngClass]="{'border-red-500': passwordsDontMatch}"
+              placeholder="Confirm Password"
+            />
+            <span *ngIf="confirmPasswordRef.valid && !passwordsDontMatch" class="absolute right-3 top-1/2 -translate-y-1/2 text-green-500">
+              <i class="bi bi-check-circle-fill"></i>
+            </span>
+          </div>
+          <div class="text-red-500 text-xs mt-1 transition-opacity duration-200" [ngClass]="{'opacity-100': confirmPasswordRef.touched && (confirmPasswordRef.invalid || passwordsDontMatch), 'opacity-0': !(confirmPasswordRef.touched && (confirmPasswordRef.invalid || passwordsDontMatch))}">
+            <span *ngIf="confirmPasswordRef.errors?.['required']">Confirm password is required</span>
+            <span *ngIf="!confirmPasswordRef.errors?.['required'] && passwordsDontMatch">Passwords do not match</span>
+          </div>
+        </div>
+
+        <!-- Terms & Conditions -->
+        <div class="mb-5">
+          <label class="flex items-center cursor-pointer">
+            <input
+              type="checkbox"
+              [(ngModel)]="termsAccepted"
+              name="terms"
+              (ngModelChange)="validateTerms()"
+              #termsRef="ngModel"
+              class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+            />
+            <span class="ml-2 text-sm text-gray-700">
+              I accept the <a href="#" class="text-indigo-600 hover:text-indigo-800">Terms of Use</a> & <a href="#" class="text-indigo-600 hover:text-indigo-800">Privacy Policy</a>
+            </span>
+          </label>
+          <div class="text-red-500 text-xs mt-1 transition-opacity duration-200" [ngClass]="{'opacity-100': !termsAccepted && termsTouched, 'opacity-0': !(!termsAccepted && termsTouched)}">
+            <span>You must accept the terms</span>
+          </div>
+        </div>
+
+        <!-- Register Button -->
+        <div class="text-center">
+          <button
+            type="submit"
+            class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-1 hover:shadow-lg"
+            [disabled]="registerForm.invalid || passwordsDontMatch || !termsAccepted"
+          >
+            Sign Up
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="bg-gray-50 text-center py-4">
+      <p class="text-sm">Already have an account? <a routerLink="/sign-in" class="text-indigo-600 hover:text-indigo-800 font-medium">Login here</a></p>
+    </div>
+  </div>
+</div>

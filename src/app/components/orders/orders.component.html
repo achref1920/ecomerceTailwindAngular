@@ -1,0 +1,70 @@
+<app-navbar></app-navbar>
+
+<div class="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 py-8 px-4">
+  <h2 class="text-center text-3xl font-bold text-gray-600 mb-8">My Orders</h2>
+
+  <!-- Display orders if available -->
+  <div *ngIf="orders.length > 0; else noOrders">
+    <div class="max-w-4xl mx-auto">
+      <div
+        class="bg-white rounded-xl shadow-lg mb-6 transform transition-all hover:scale-101 hover:shadow-xl duration-300"
+        *ngFor="let order of orders"
+      >
+        <a [routerLink]="['/order', order.id]" class="block text-decoration-none">
+          <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-t-xl p-4 flex justify-between items-center">
+            <div>
+              <h5 class="text-lg font-semibold mb-2">Order ID: {{ order.id }}</h5>
+              <p class="mb-1 text-sm">
+                <strong>Order Date:</strong> {{ order.orderDate | date:'medium' }}
+              </p>
+              <p class="mb-0 text-sm">
+                <strong>Total Price:</strong> {{ order.totalPrice }}TND
+              </p>
+            </div>
+            <span class="bg-yellow-400 text-slate-900 px-3 py-1 rounded-full text-sm font-medium shadow-sm">
+              {{ order.status }}
+            </span>
+          </div>
+
+          <div class="p-4 bg-gray-50 rounded-b-xl">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center" *ngFor="let item of order.orderItems">
+              <div class="col-span-3 md:col-span-2 text-center">
+                <img
+                  [src]="item.productImgUrl"
+                  class="w-full max-h-24 object-cover rounded-lg shadow-sm transform hover:scale-105 transition-transform duration-200"
+                  alt="{{ item.productName }}"
+                />
+              </div>
+              <div class="col-span-9 md:col-span-10">
+                <h6 class="text-lg font-bold text-gray-800">{{ item.productName }}</h6>
+                <p class="text-sm text-gray-600 mb-1">
+                  <strong>Quantity:</strong> {{ item.quantity }}
+                </p>
+                <p class="text-sm text-gray-600 mb-0">
+                  <strong>Price:</strong> {{ item.price }}TND
+                </p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- No orders message -->
+  <ng-template #noOrders>
+    <div class="max-w-md mx-auto bg-white rounded-xl shadow-lg p-6 text-center mt-8 transform transition-all hover:scale-105 duration-300">
+      <p class="text-gray-600 text-lg">No orders found. Place your first order!</p>
+    </div>
+  </ng-template>
+
+  <!-- Place Order Button -->
+  <div class="text-center mt-8">
+    <button
+      class="bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 transition-all duration-200 transform hover:-translate-y-1 hover:shadow-lg flex items-center justify-center gap-2 mx-auto"
+      routerLink="/"
+    >
+      <i class="bi bi-cart"></i> Place New Order
+    </button>
+  </div>
+</div>

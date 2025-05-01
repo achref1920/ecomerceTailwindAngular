@@ -1,0 +1,115 @@
+<app-navbar></app-navbar>
+<div class="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 flex items-center justify-center p-4">
+  <div class="max-w-md w-full bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all hover:scale-105 duration-300">
+    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-center py-6">
+      <h4 class="text-2xl font-bold">Welcome Back</h4>
+      <p class="text-sm mt-1 opacity-80">Sign in to continue your shopping adventure!</p>
+     
+    </div>
+    <div class="p-6">
+      <form #loginForm="ngForm" (ngSubmit)="login()" novalidate>
+        <!-- msgs  failed-->
+        <div *ngIf="showMsg" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <strong class="font-bold">Login failed, </strong>
+          <span class="block sm:inline">please try again!</span>
+          <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+            <svg (click)="showMsg = false" class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+          </span>
+        </div>
+        <!-- msgs  success-->
+        <div *ngIf="showSuccessMsg" class="space-y-5">
+          <div class="bg-teal-50 border-t-2 border-teal-500 rounded-lg p-4 dark:bg-teal-800/30" role="alert" tabindex="-1" aria-labelledby="hs-bordered-success-style-label">
+            <div class="flex">
+              <div class="shrink-0">
+                <!-- Icon -->
+                <span class="inline-flex justify-center items-center size-8 rounded-full border-4 border-teal-100 bg-teal-200 text-teal-800 dark:border-teal-900 dark:bg-teal-800 dark:text-teal-400">
+                  <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                    <path d="m9 12 2 2 4-4"></path>
+                  </svg>
+                </span>
+                <!-- End Icon -->
+              </div>
+              <div class="ms-3">
+                <h3 id="hs-bordered-success-style-label" class="text-gray-800 font-semibold dark:text-white">
+                  Login Successful
+                </h3>
+                <p class="text-sm text-gray-700 dark:text-neutral-400">
+                  Redirecting to your account...
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Email -->
+        <div class="mb-5 relative">
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+          <div class="flex items-center relative">
+            <span class="absolute left-3 text-gray-500"><i class="bi bi-envelope-fill"></i></span>
+            <input
+              type="email"
+              class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+              id="email"
+              [(ngModel)]="credentials.email"
+              name="email"
+              #emailRef="ngModel"
+              required
+              email
+              [ngClass]="{'border-red-500': emailRef.invalid && emailRef.touched}"
+              placeholder="Email Address"
+            />
+          </div>
+          <div class="text-red-500 text-xs mt-1 transition-opacity duration-200" [ngClass]="{'opacity-100': emailRef.invalid && emailRef.touched, 'opacity-0': !(emailRef.invalid && emailRef.touched)}">
+            <span *ngIf="emailRef.errors?.['required']">Email is required</span>
+            <span *ngIf="emailRef.errors?.['email']">Enter a valid email</span>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-5 relative">
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+          <div class="flex items-center relative">
+            <span class="absolute left-3 text-gray-500"><i class="bi bi-lock-fill"></i></span>
+            <input
+              [type]="hide ? 'password' : 'text'"
+              class="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+              id="password"
+              [(ngModel)]="credentials.password"
+              name="password"
+              #passwordRef="ngModel"
+              required
+              minlength="6"
+              [ngClass]="{'border-red-500': passwordRef.invalid && passwordRef.touched}"
+              placeholder="Password"
+            />
+            <span
+              class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500 hover:text-indigo-600 transition-colors duration-200"
+              (click)="hidePassword()"
+              aria-label="Toggle password visibility"
+            >
+              <i class="bi" [ngClass]="hide ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
+            </span>
+          </div>
+          <div class="text-red-500 text-xs mt-1 transition-opacity duration-200" [ngClass]="{'opacity-100': passwordRef.invalid && passwordRef.touched, 'opacity-0': !(passwordRef.invalid && passwordRef.touched)}">
+            <span *ngIf="passwordRef.errors?.['required']">Password is required</span>
+            <span *ngIf="passwordRef.errors?.['minlength']">Password must be at least 6 characters</span>
+          </div>
+        </div>
+
+        <!-- Login Button -->
+        <div class="text-center">
+          <button
+            type="submit"
+            class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-1 hover:shadow-lg"
+            [disabled]="loginForm.invalid"
+          >
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="bg-gray-50 text-center py-4">
+      <p class="text-sm">Don't have an account? <a routerLink="/sign-up" class="text-indigo-600 hover:text-indigo-800 font-medium">Sign up here</a></p>
+    </div>
+  </div>
+</div>

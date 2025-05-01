@@ -1,0 +1,177 @@
+<app-navbar></app-navbar>
+
+<div class="min-h-screen bg-gradient-to-br from-indigo-200 via-purple-200 to-pink-200 py-12 px-6">
+  <h2 class="text-center text-4xl font-extrabold text-indigo-800 mb-10 tracking-tight">Checkout</h2>
+
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Left Section: Cart Details -->
+    <div class="lg:col-span-2">
+      <div class="bg-white rounded-2xl shadow-xl p-6 transform transition-all hover:scale-101 hover:shadow-2xl duration-300">
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-t-lg p-4">
+          <h5 class="text-lg font-semibold mb-0">Cart Details</h5>
+        </div>
+        <div class="p-6">
+          <div *ngIf="cart && cart.cartItems.length > 0; else noCartItems">
+            <div class="grid grid-cols-12 gap-4 items-center border-b border-gray-200 py-3" *ngFor="let item of cart.cartItems">
+              <div class="col-span-3 md:col-span-2 text-center">
+                <img
+                  [src]="item.product.imageUrl"
+                  class="w-full max-h-24 object-cover rounded-lg shadow-sm transform hover:scale-105 transition-transform duration-200"
+                  alt="{{ item.product.name }}"
+                />
+              </div>
+              <div class="col-span-7 md:col-span-8">
+                <h6 class="text-lg font-bold text-gray-800">{{ item.product.name }}</h6>
+                <p class="text-sm text-gray-600 mb-1">
+                  <strong>Quantity:</strong> {{ item.quantity }}
+                </p>
+                <p class="text-sm text-gray-600 mb-0">
+                  <strong>Price:</strong> {{ item.product.price | number:'1.2-2' }}TND
+                </p>
+              </div>
+              <div class="col-span-2 text-center">
+                <p class="text-lg font-bold text-gray-800">
+                  {{ item.quantity * item.product.price | number:'1.2-2' }}TND
+                </p>
+              </div>
+            </div>
+            <div class="mt-4 text-right">
+              <h5 class="text-xl font-bold text-indigo-900">Total Price: {{ cart.totalPrice }}TND</h5>
+            </div>
+          </div>
+
+          <!-- No Items in Cart -->
+          <ng-template #noCartItems>
+            <div class="bg-yellow-100 text-yellow-800 p-4 rounded-lg text-center shadow-sm">
+              Your cart is empty. Add items to proceed!
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Section: Address & Payment Form -->
+    <div class="lg:col-span-1">
+      <!-- Shipping Address -->
+      <div class="bg-white rounded-2xl shadow-xl p-6 transform transition-all hover:scale-101 hover:shadow-2xl duration-300 mb-6">
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-t-lg p-4">
+          <h5 class="text-lg font-semibold mb-0">Shipping Address</h5>
+        </div>
+        <div class="p-6">
+          <div *ngIf="addresses && addresses.length > 0; else noAddresses">
+            <label for="addressSelect" class="block text-sm font-medium text-gray-700 mb-2">Select Shipping Address</label>
+            <select
+              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 bg-white text-gray-900"
+              id="addressSelect"
+              [(ngModel)]="selectedAddress"
+            >
+              <option *ngFor="let address of addresses" [ngValue]="address">
+                {{ address.streetAddress }}, {{ address.city }}
+              </option>
+            </select>
+            <div class="text-center mt-4">
+              <button
+                class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 hover:shadow-[0_0_15px_rgba(79,70,229,0.6)] transition-all duration-200"
+                (click)="redirectToAddAddress()"
+              >
+                Add Address
+              </button>
+            </div>
+          </div>
+
+          <!-- No Addresses -->
+          <ng-template #noAddresses>
+            <div class="text-center">
+              <p class="text-gray-600 mb-4">No addresses available.</p>
+              <button
+                class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 hover:shadow-[0_0_15px_rgba(79,70,229,0.6)] transition-all duration-200"
+                (click)="redirectToAddAddress()"
+              >
+                Add Address
+              </button>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+
+      <!-- Payment Method -->
+      <div class="bg-white rounded-2xl shadow-xl p-6 transform transition-all hover:scale-101 hover:shadow-2xl duration-300">
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-t-lg p-4">
+          <h5 class="text-lg font-semibold mb-0">Payment Method</h5>
+        </div>
+        <div class="p-6">
+          <label for="paymentMethod" class="block text-sm font-medium text-gray-700 mb-2">Select Payment Method</label>
+          <select
+            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 bg-white text-gray-900"
+            id="paymentMethod"
+            [(ngModel)]="selectedPaymentMethod"
+          >
+            <option value="creditCard">Credit Card</option>
+          </select>
+
+          <!-- Credit Card Details -->
+          <div *ngIf="selectedPaymentMethod === 'creditCard'" class="mt-4">
+            <div class="mb-4">
+              <label for="cardholderName" class="block text-sm font-medium text-gray-700 mb-1">Cardholder Name</label>
+              <input
+                type="text"
+                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                id="cardholderName"
+                [(ngModel)]="cardholderName"
+                placeholder="Enter cardholder's name"
+                required
+              />
+            </div>
+            <div class="mb-4">
+              <label for="cardNumber" class="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
+              <input
+                type="text"
+                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                id="cardNumber"
+                [(ngModel)]="cardNumber"
+                placeholder="Enter card number"
+                maxlength="16"
+                required
+              />
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="cardExpiry" class="block text-sm font-medium text-gray-700 mb-1">Expiration Date</label>
+                <input
+                  type="month"
+                  class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                  id="cardExpiry"
+                  [(ngModel)]="cardExpiry"
+                  placeholder="Enter Expiration Date"
+                  required
+                />
+              </div>
+              <div>
+                <label for="cardCVV" class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
+                <input
+                  type="text"
+                  class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                  id="cardCVV"
+                  [(ngModel)]="cardCVV"
+                  placeholder="Enter CVV"
+                  maxlength="3"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirm Order Button -->
+      <div class="text-center mt-6">
+        <button
+          class="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 hover:shadow-[0_0_15px_rgba(34,197,94,0.6)] transition-all duration-200 transform hover:-translate-y-1"
+          (click)="onConfirmOrder()"
+        >
+          Confirm Order
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

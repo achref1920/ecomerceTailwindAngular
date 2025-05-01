@@ -1,0 +1,79 @@
+<app-navbar></app-navbar>
+
+<div class="min-h-screen bg-gradient-to-br from-indigo-200 via-purple-200 to-pink-200 py-12 px-6">
+  <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8">
+    <!-- Empty Cart Message -->
+    <div *ngIf="cart.cartItems.length === 0" class="text-center py-12 bg-gray-50 rounded-xl shadow-sm">
+      <div class="mb-6 animate-bounce">
+        <svg class="w-24 h-24 mx-auto text-indigo-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+      </div>
+      <h2 class="text-3xl font-bold text-indigo-900 mb-4 font-['Playfair_Display']">Your Cart is Empty</h2>
+      <p class="text-gray-600 mb-6">Add products to your cart to proceed with checkout.</p>
+      <button
+        class="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 hover:shadow-[0_0_15px_rgba(79,70,229,0.6)] transition-all duration-300 transform hover:-translate-y-1"
+        routerLink="/"
+      >
+        <i class="bi bi-cart-plus"></i> Go to Shop
+      </button>
+    </div>
+
+    <!-- Cart Content -->
+    <div *ngIf="cart.cartItems.length > 0">
+      <h2 class="text-4xl font-bold text-indigo-900 text-center mb-8 font-['Playfair_Display']">Your Cart</h2>
+
+      <!-- Cart Items List -->
+      <div class="space-y-6 mb-8">
+        <div
+          *ngFor="let item of cart.cartItems"
+          class="flex flex-col sm:flex-row justify-between items-center bg-gray-50 rounded-xl p-6 shadow-sm transform transition-all hover:scale-101 hover:shadow-md duration-300"
+        >
+          <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+            <img
+              *ngIf="item.product.imageUrl"
+              [src]="item.product.imageUrl"
+              alt="{{ item.product.name }}"
+              class="w-20 h-20 object-cover rounded-lg shadow-sm"
+            />
+            <div class="text-center sm:text-left">
+              <h3 class="text-lg font-bold text-indigo-900 font-['Playfair_Display']">{{ item.product.name }}</h3>
+              <p class="text-sm text-gray-600">{{ item.product.description }}</p>
+              <div class="flex flex-col sm:flex-row gap-2 mt-2 text-sm text-gray-800">
+                <span>Quantity: {{ item.quantity }}</span>
+                <span>Total: {{ (item.quantity * item.product.price).toFixed(2) }} TND</span>
+              </div>
+            </div>
+          </div>
+          <button
+            class="mt-4 sm:mt-0 inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white font-semibold rounded-full hover:bg-red-700 hover:shadow-[0_0_15px_rgba(220,38,38,0.6)] transition-all duration-300"
+            (click)="removeProductFromCart(item.product.id)"
+          >
+            <i class="bi bi-trash"></i> Remove
+          </button>
+        </div>
+      </div>
+
+      <!-- Cart Summary -->
+      <div class="bg-gray-50 rounded-xl p-6 shadow-sm">
+        <div class="text-center sm:text-right mb-6">
+          <h3 class="text-2xl font-bold text-indigo-900 font-['Playfair_Display']">Total: {{ cart.totalPrice.toFixed(2) }} TND</h3>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button
+            class="inline-flex items-center gap-2 px-6 py-3 bg-gray-700 text-white font-semibold rounded-full hover:bg-gray-800 hover:shadow-[0_0_15px_rgba(55,65,81,0.6)] transition-all duration-300"
+            (click)="clearCart()"
+          >
+            <i class="bi bi-trash-fill"></i> Clear Cart
+          </button>
+          <button
+            class="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-semibold rounded-full hover:bg-green-700 hover:shadow-[0_0_15px_rgba(34,197,94,0.6)] transition-all duration-300"
+            routerLink="/checkout"
+          >
+            <i class="bi bi-check-circle"></i> Proceed to Checkout
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
