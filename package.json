@@ -21,7 +21,10 @@
     "@angular/router": "^18.2.0",
     "@angular/ssr": "^19.2.9",
     "@tailwindcss/postcss": "^4.1.4",
+    "chart.js": "^4.4.9",
+    "ng2-charts": "^6.0.0",
     "rxjs": "~7.8.0",
+    "tailwind": "^4.0.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
   },

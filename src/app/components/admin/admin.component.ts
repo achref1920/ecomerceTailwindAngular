@@ -24,7 +24,7 @@ import { AuthService } from '../../services/auth.service';
 export class AdminComponent implements OnInit {
   errorMessage: string | null = null;
   isEditMode: boolean = false;
-  currentSection: string = 'categories';
+  currentSection: string = 'dashboard';
 
   users: User[] = [];
   userForm: FormGroup;

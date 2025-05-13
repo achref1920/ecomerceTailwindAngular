@@ -12,6 +12,7 @@ import { AddressComponent } from './components/address/address.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
+import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,6 +26,9 @@ const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'orders', component: OrdersComponent },
   { path: 'order/:id', component: OrderDetailsComponent },
+  {
+    path:'dashboard',component:DashboardComponent
+  },
   { path: '**', component: ErrorComponent },
   
 ];

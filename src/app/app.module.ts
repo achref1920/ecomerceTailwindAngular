@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -19,6 +18,8 @@ import { OrderDetailsComponent } from './components/order-details/order-details.
 import { ProductComponent } from './components/product/product.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { AddressComponent } from './components/address/address.component';
+import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -36,16 +37,18 @@ import { AddressComponent } from './components/address/address.component';
     OrdersComponent,
     OrderDetailsComponent,
     ProductComponent,
-    AddressComponent
+    AddressComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,CommonModule
   ],
   providers: [
-    provideClientHydration(withEventReplay()), provideHttpClient(withFetch()),
+    provideClientHydration(withEventReplay()),
+    provideHttpClient(withFetch()),
   ],
   bootstrap: [AppComponent]
 })

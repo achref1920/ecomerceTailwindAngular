@@ -24,11 +24,21 @@
           <button
             class="w-full px-4 py-3 text-left rounded-xl transition-all duration-300 border-2 border-teal-500 hover:bg-teal-600 hover:border-coral-300 hover:shadow-[0_0_10px_rgba(255,107,107,0.4)] focus:ring-4 focus:ring-coral-200 flex items-center gap-3 text-sm font-semibold"
             [ngClass]="{'bg-gradient-to-r from-teal-500 to-blue-600 border-coral-300 shadow-[0_0_15px_rgba(255,107,107,0.5)]': currentSection === 'users'}"
+            (click)="navigateTo('dashboard')"
+          >
+            <i class="bi bi-people-fill text-lg"></i> Dashboard
+          </button>
+        </li>
+        <li>
+          <button
+            class="w-full px-4 py-3 text-left rounded-xl transition-all duration-300 border-2 border-teal-500 hover:bg-teal-600 hover:border-coral-300 hover:shadow-[0_0_10px_rgba(255,107,107,0.4)] focus:ring-4 focus:ring-coral-200 flex items-center gap-3 text-sm font-semibold"
+            [ngClass]="{'bg-gradient-to-r from-teal-500 to-blue-600 border-coral-300 shadow-[0_0_15px_rgba(255,107,107,0.5)]': currentSection === 'users'}"
             (click)="navigateTo('users')"
           >
             <i class="bi bi-people-fill text-lg"></i> Users
           </button>
         </li>
+         
         <li>
           <button
             class="w-full px-4 py-3 text-left rounded-xl transition-all duration-300 border-2 border-teal-500 hover:bg-teal-600 hover:border-coral-300 hover:shadow-[0_0_10px_rgba(255,107,107,0.4)] focus:ring-4 focus:ring-coral-200 flex items-center gap-3 text-sm font-semibold"
@@ -95,6 +105,12 @@
     <!-- Main Content -->
     <div class="flex-1 p-8 lg:ml-72">
       <!-- User Management Section -->
+       <div
+        *ngIf="currentSection === 'dashboard'"
+        class="bg-white rounded-2xl shadow-xl p-8 transform transition-all hover:scale-101 duration-300"
+      >
+      <app-dashboard></app-dashboard>
+    </div>
       <div
         *ngIf="currentSection === 'users'"
         class="bg-white rounded-2xl shadow-xl p-8 transform transition-all hover:scale-101 duration-300"
