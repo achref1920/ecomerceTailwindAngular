@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ApiResponse } from '../../models/api.response';
 import { Order } from '../../models/order.model';
 import { Category } from '../../models/category.model';
@@ -25,6 +25,7 @@ export class AdminComponent implements OnInit {
   errorMessage: string | null = null;
   isEditMode: boolean = false;
   currentSection: string = 'dashboard';
+  isLoadingOrders: boolean = false;
 
   users: User[] = [];
   userForm: FormGroup;
@@ -40,6 +41,8 @@ export class AdminComponent implements OnInit {
   productForm: FormGroup;
   selectedProduct: Product | null = null;
   productModalVisible: boolean = false;
+  filteredProducts: Product[] = [];
+  searchQuery: string = '';
 
   orders: Order[] = [];
   orderForm: FormGroup;
@@ -59,7 +62,8 @@ export class AdminComponent implements OnInit {
     private orderService: OrderService,
     private addressService: AddressService,
     private authService: AuthService,
-  private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
     this.userForm = this.fb.group({
       id: [null],
@@ -89,6 +93,7 @@ export class AdminComponent implements OnInit {
     this.loadCategories();
     this.loadProducts();
     this.getAllOrders();
+    console.log("Admin component initialized", this.products);
   }
 
   toggleSidebar(): void {
@@ -98,6 +103,10 @@ export class AdminComponent implements OnInit {
   navigateTo(section: string): void {
     console.log("Navigating to:", section);
     this.currentSection = section;
+    // If navigating to orders, ensure data is refreshed
+    if (section === 'orders') {
+      this.getAllOrders();
+    }
   }
 
   // --------------------------- User Management Section ---------------------------
@@ -183,15 +192,31 @@ export class AdminComponent implements OnInit {
         if (response.status === true && response.data) {
           console.log(response.message);
           this.products = response.data;
+          this.filteredProducts = [...this.products];
         } else {
           this.errorMessage = response.message || 'An error occurred while fetching products.';
+          this.filteredProducts = [];
         }
       },
       error: (error: any) => {
         this.errorMessage = error.message || 'An error occurred while fetching products.';
+        this.filteredProducts = [];
         console.error('Error fetching products:', error);
       }
     });
+  }
+
+  onSearch(): void {
+    const query = this.searchQuery.toLowerCase().trim();
+    if (!query) {
+      this.filteredProducts = [...this.products];
+      return;
+    }
+
+    this.filteredProducts = this.products.filter(product =>
+      product.name.toLowerCase().includes(query) ||
+      product.description.toLowerCase().includes(query)
+    );
   }
 
   openAddProductModal(): void {
@@ -263,6 +288,7 @@ export class AdminComponent implements OnInit {
           if (response.status === true) {
             console.log(response.message);
             this.loadProducts();
+            this.onSearch();
           } else {
             this.errorMessage = response.message || 'An error occurred while deleting the product.';
           }
@@ -282,12 +308,16 @@ export class AdminComponent implements OnInit {
           if (response.status === true && response.data) {
             console.log(response.message);
             this.products = response.data;
+            this.filteredProducts = [...this.products];
+            this.onSearch();
           } else {
             this.errorMessage = response.message || 'An error occurred while fetching products.';
+            this.filteredProducts = [];
           }
         },
         error: (error: any) => {
           this.errorMessage = error.message || 'An error occurred while fetching products.';
+          this.filteredProducts = [];
           console.error('Error fetching products:', error);
         }
       });
@@ -401,17 +431,26 @@ export class AdminComponent implements OnInit {
   // --------------------------- Orders Management Section ---------------------------
 
   getAllOrders(): void {
+    this.isLoadingOrders = true;
     this.orderService.getAllOrders().subscribe({
       next: (response: ApiResponse<Order[]>) => {
+        console.log('Orders API Response:', response); // Debug log
         if (response.status === true && response.data) {
-          console.log(response.message);
+          console.log('Orders fetched successfully:', response.data);
           this.orders = response.data;
         } else {
           this.errorMessage = response.message || 'An error occurred while fetching orders.';
+          this.orders = [];
+          console.log('No orders data or status false:', response.message);
         }
+        this.isLoadingOrders = false;
+        this.cdr.detectChanges();
       },
       error: (error: any) => {
         this.errorMessage = error.message || 'An error occurred while fetching orders.';
+        this.orders = [];
+        this.isLoadingOrders = false;
+        this.cdr.detectChanges();
         console.error('Error fetching orders:', error);
       }
     });
@@ -509,10 +548,10 @@ export class AdminComponent implements OnInit {
   closeAddressPopup(): void {
     this.addressModalVisible = false;
   }
+
   logout(): void {
     localStorage.removeItem('token');
-      localStorage.removeItem('userName');
-        this.router.navigate(['/admin']);
-
+    localStorage.removeItem('userName');
+    this.router.navigate(['/admin']);
   }
 }

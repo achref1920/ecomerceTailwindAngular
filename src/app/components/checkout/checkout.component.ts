@@ -6,7 +6,7 @@ import { Cart } from '../../models/cart.model';
 import { Address } from '../../models/address.model';
 import { User } from '../../models/user.model';
 import { ApiResponse } from '../../models/api.response';
-import { PaymentStatus } from '../../models/payment-status.enum'; // Ensure this exists in your project
+import { PaymentStatus } from '../../models/payment-status.enum';
 import { CartService } from '../../services/cart.service';
 import { AddressService } from '../../services/address.service';
 import { OrderService } from '../../services/order.service';
@@ -15,21 +15,23 @@ import { OrderService } from '../../services/order.service';
   selector: 'app-checkout',
   standalone: false,
   templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.css']  // Corrected property name
+  styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
   cart: Cart = { id: 0, cartItems: [], totalPrice: 0 };
   addresses: Address[] = [];
   selectedAddress: Address | null = null;
   token: string | null = null;
-  selectedPaymentMethod: string = 'cashOnDelivery'; // Default payment method
-  user: User | null = null;  // Store user data
+  selectedPaymentMethod: string = 'cashOnDelivery';
+  user: User | null = null;
   errorMessage: string | null = null;
 
   cardNumber: string = '';
   cardCVV: string = '';
   cardExpiry: string = '';
   cardholderName: string = '';
+
+  currentView: 'shipping' | 'payment' | 'confirmation' = 'shipping';
 
   constructor(
     private cartService: CartService,
@@ -38,7 +40,6 @@ export class CheckoutComponent implements OnInit {
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
-    // Only access localStorage in the browser context
     if (isPlatformBrowser(this.platformId)) {
       this.token = localStorage.getItem('token');
     }
@@ -47,14 +48,13 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     this.getCart();
     this.loadAddresses();
-    this.getUser(); // Load user info
+    this.getUser();
   }
 
   redirectToAddAddress(): void {
-    this.router.navigate(['/addresses']); // Modify the path as per your route for adding an address
+    this.router.navigate(['/addresses']);
   }
 
-  // Fetch user details
   getUser(): void {
     if (isPlatformBrowser(this.platformId)) {
       const userData = localStorage.getItem('user');
@@ -64,7 +64,6 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  // Fetch cart details
   getCart(): void {
     if (!this.token) {
       if (isPlatformBrowser(this.platformId)) {
@@ -89,7 +88,6 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  // Load user's saved addresses
   loadAddresses(): void {
     if (!this.token) {
       if (isPlatformBrowser(this.platformId)) {
@@ -123,21 +121,19 @@ export class CheckoutComponent implements OnInit {
   
     const addressId = this.selectedAddress.id;
   
-    // Prepare the payment data
     const paymentData = {
       paymentMethod: this.selectedPaymentMethod,
-      paymentStatus: PaymentStatus.SUCCESS,  // Assuming PaymentStatus.SUCCESS exists in your project
+      paymentStatus: PaymentStatus.SUCCESS,
       cardNumber: this.cardNumber,
       cardCVV: this.cardCVV,
       cardExpiry: this.cardExpiry,
       cardholderName: this.cardholderName
     };
   
-    // Place the order
     this.placeOrder(addressId, paymentData);
+    this.changeView('confirmation');
   }
-  
-  // Place order
+
   placeOrder(addressId: number, paymentData: any): void {
     if (!this.token) {
       if (isPlatformBrowser(this.platformId)) {
@@ -163,5 +159,9 @@ export class CheckoutComponent implements OnInit {
         console.error("Error placing order:", error);
       }
     });
+  }
+
+  changeView(view: 'shipping' | 'payment' | 'confirmation'): void {
+    this.currentView = view;
   }
 }

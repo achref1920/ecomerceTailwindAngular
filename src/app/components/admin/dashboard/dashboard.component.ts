@@ -45,7 +45,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   constructor(private categoryService: CategoryService) { }
 
   ngOnInit(): void {
-    // Initialize tooltip container
     const tooltipContainer = document.createElement('div');
     tooltipContainer.id = 'tooltip';
     tooltipContainer.className = 'absolute z-50 hidden';
@@ -149,7 +148,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
             categoryPercentage: 0.8
           },
           {
-            label: 'Food Products',
+            label: 'Books',
             data: [15, 0, 0, 5, 0, 5, 5, 10, 0, 10, 0, 5],
             backgroundColor: 'rgb(59, 130, 246)',
             barPercentage: 0.6,

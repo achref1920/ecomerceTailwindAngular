@@ -20,6 +20,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { AddressComponent } from './components/address/address.component';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { CommonModule } from '@angular/common';
+import { PaymentMethodComponent } from './components/checkout/payment-method/payment-method.component';
 
 @NgModule({
   declarations: [
@@ -38,13 +39,14 @@ import { CommonModule } from '@angular/common';
     OrderDetailsComponent,
     ProductComponent,
     AddressComponent,
-    DashboardComponent
+    DashboardComponent,
+    PaymentMethodComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule,CommonModule
+    ReactiveFormsModule,CommonModule,ReactiveFormsModule
   ],
   providers: [
     provideClientHydration(withEventReplay()),

@@ -37,4 +37,13 @@ export class CartService {
   clearCart(token: string): Observable<ApiResponse<any>> {
     return this.http.delete<ApiResponse<any>>(`${this.baseUrl}/my-cart/clear`, this.getAuthHeaders(token));
   }
+
+
+    updateCartItemQuantity(cartItemId: number, quantity: number, token: string): Observable<ApiResponse<any>> {
+    return this.http.put<ApiResponse<any>>(
+      `${this.baseUrl}/my-cart/item/${cartItemId}/${quantity}`,
+      null,
+      this.getAuthHeaders(token)
+    );
+  }
 }

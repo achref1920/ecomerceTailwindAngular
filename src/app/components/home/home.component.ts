@@ -12,22 +12,23 @@ import { ApiResponse } from '../../models/api.response';
   selector: 'app-home',
   standalone: false,
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']  // Corrected to plural "styleUrls"
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
   products: Product[] = [];
+  originalProducts: Product[] = []; // Store original product list
   categories: Category[] = [];
   token: string | null = null;
   errorMessage: string | null = null;
+  searchTerm: string = ''; // Bind to search input
 
   constructor(
-    private productService: ProductService, 
-    private categoryService: CategoryService, 
-    private cartService: CartService, 
+    private productService: ProductService,
+    private categoryService: CategoryService,
+    private cartService: CartService,
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) { 
-    // Only access localStorage if running in the browser
+  ) {
     if (isPlatformBrowser(this.platformId)) {
       this.token = localStorage.getItem('token');
     }
@@ -42,7 +43,8 @@ export class HomeComponent {
     this.productService.getProducts().subscribe({
       next: (response: ApiResponse<Product[]>) => {
         if (response.status === true && response.data) {
-          this.products = response.data;
+          this.originalProducts = response.data; // Store original list
+          this.products = [...response.data].reverse(); // Reverse for display
         } else {
           this.errorMessage = response.message || 'An error occurred while fetching products.';
         }
@@ -75,7 +77,8 @@ export class HomeComponent {
       this.productService.getProductsByCategory(categoryId).subscribe({
         next: (response: ApiResponse<Product[]>) => {
           if (response.status === true && response.data) {
-            this.products = response.data;
+            this.originalProducts = response.data; // Update original list
+            this.products = [...response.data].reverse(); // Reverse for display
           } else {
             this.errorMessage = response.message || 'An error occurred while fetching products.';
           }
@@ -93,12 +96,27 @@ export class HomeComponent {
   onCategoryChange(event: any) {
     const categoryId = event.target.value;
     this.getProductsByCategory(categoryId);
+    this.searchTerm = ''; // Reset search term when category changes
+  }
+
+  searchProducts() {
+    if (!this.searchTerm.trim()) {
+      this.products = [...this.originalProducts].reverse(); // Restore reversed original list
+      this.errorMessage = null;
+      return;
+    }
+
+    const filteredProducts = this.originalProducts.filter(product =>
+      product.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+
+    this.products = [...filteredProducts].reverse(); // Reverse filtered results
+    this.errorMessage = filteredProducts.length === 0 ? 'No products found.' : null;
   }
 
   addToCart(productId: number, quantity: number) {
     if (!this.token) {
       alert('Please log in to add products to the cart.');
-      this.router.navigate(['/sign-in']);
       return;
     }
     this.cartService.addProductToCart(productId, quantity, this.token).subscribe({

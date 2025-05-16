@@ -103,4 +103,51 @@ export class CartComponent {
     }
     this.router.navigate(['/sign-in']);
   }
+
+increaseQuantity(item: any): void {
+    item.quantity++;
+    this.updateCartTotals();
+    this.updateCartItemQuantity(item);
+  }
+
+  decreaseQuantity(item: any): void {
+    if (item.quantity > 1) {
+      item.quantity--;
+      this.updateCartTotals();
+      this.updateCartItemQuantity(item);
+    }
+  }
+
+setQuantity(item: any, value: number): void {
+    item.quantity = value;
+    this.updateCartTotals();
+    this.updateCartItemQuantity(item);
+}
+updateCartTotals(): void {
+  let total = 0;
+  this.cart.cartItems.forEach((cartItem: any) => {
+    total += cartItem.quantity * cartItem.product.price;
+  });
+  this.cart.totalPrice = total;
+}
+updateCartItemQuantity(item: any): void {
+    if (!this.token) return;
+    this.cartService.updateCartItemQuantity(item.id, item.quantity, this.token).subscribe({
+      next: (response: ApiResponse<any>) => {
+        if (response.status === true) {
+          this.syncTotalPriceWithBackend(); // Sync with backend instead of local calculation
+        } else {
+          this.errorMessage = response.message || 'An error occurred while updating the cart item quantity.';
+        }
+      },
+      error: (error: any) => {
+        this.errorMessage = error.message || 'An error occurred while updating the cart item quantity.';
+        console.error('Error updating cart item quantity:', error);
+        this.syncTotalPriceWithBackend(); // Sync even on error to ensure UI consistency
+      }
+    });
+  }
+  syncTotalPriceWithBackend(): void {
+    this.getCart(); 
+  }
 }

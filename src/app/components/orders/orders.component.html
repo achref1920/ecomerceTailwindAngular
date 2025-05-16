@@ -8,7 +8,7 @@
     <div class="max-w-4xl mx-auto">
       <div
         class="bg-white rounded-xl shadow-lg mb-6 transform transition-all hover:scale-101 hover:shadow-xl duration-300"
-        *ngFor="let order of orders"
+        *ngFor="let order of orders "
       >
         <a [routerLink]="['/order', order.id]" class="block text-decoration-none">
           <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-t-xl p-4 flex justify-between items-center">
