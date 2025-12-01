@@ -21,6 +21,7 @@ import { AddressComponent } from './components/address/address.component';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { CommonModule } from '@angular/common';
 import { PaymentMethodComponent } from './components/checkout/payment-method/payment-method.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { PaymentMethodComponent } from './components/checkout/payment-method/pay
     ProductComponent,
     AddressComponent,
     DashboardComponent,
-    PaymentMethodComponent
+    PaymentMethodComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

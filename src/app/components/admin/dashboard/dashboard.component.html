@@ -1,70 +1,70 @@
-<div class="p-6 bg-gray-100 min-h-screen">
+<div class="min-h-screen bg-gray-50">
   <!-- Metrics Cards -->
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
     <!-- Sales Card -->
-    <div class="bg-white rounded-lg shadow p-6">
+    <div
+      class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
       <div class="mb-4">
-        <h2 class="text-3xl font-bold text-gray-800">{{salesData.value}}</h2>
-        <p class="text-gray-600">{{salesData.label}}</p>
+        <div class="flex items-center justify-between mb-2">
+          <div
+            class="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-lg">
+            <i class="bi bi-graph-up-arrow text-white text-2xl"></i>
+          </div>
+          <span class="text-green-600 text-sm font-semibold">+12.5%</span>
+        </div>
+        <h2 class="text-4xl font-bold text-gray-900 mb-1">{{ salesData.value }}</h2>
+        <p class="text-gray-600 font-medium">{{ salesData.label }}</p>
       </div>
       <div class="relative">
-        <canvas #salesChart class="w-full h-16" 
-          (mousemove)="createTooltip($event, salesChartRef, '08 Sep', 'Sales', 47)" 
+        <canvas #salesChart class="w-full h-16"
+          (mousemove)="createTooltip($event, salesChartRef, '08 Sep', 'Sales', 47)"
           (mouseleave)="hideTooltip()"></canvas>
       </div>
     </div>
 
     <!-- Expenses Card -->
-    <div class="bg-white rounded-lg shadow p-6">
+    <div
+      class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
       <div class="mb-4">
-        <h2 class="text-3xl font-bold text-gray-800">{{expensesData.value}}</h2>
-        <p class="text-gray-600">{{expensesData.label}}</p>
+        <div class="flex items-center justify-between mb-2">
+          <div
+            class="w-12 h-12 bg-gradient-to-br from-secondary-500 to-secondary-600 rounded-xl flex items-center justify-center shadow-lg">
+            <i class="bi bi-cash-stack text-white text-2xl"></i>
+          </div>
+          <span class="text-red-600 text-sm font-semibold">-3.2%</span>
+        </div>
+        <h2 class="text-4xl font-bold text-gray-900 mb-1">
+          {{ expensesData.value }}
+        </h2>
+        <p class="text-gray-600 font-medium">{{ expensesData.label }}</p>
       </div>
       <div class="relative">
-        <canvas #expensesChart class="w-full h-16" 
-          (mousemove)="createTooltip($event, expensesChartRef, '08 Sep', 'Expenses', 56)" 
+        <canvas #expensesChart class="w-full h-16"
+          (mousemove)="createTooltip($event, expensesChartRef, '08 Sep', 'Expenses', 56)"
           (mouseleave)="hideTooltip()"></canvas>
       </div>
     </div>
 
     <!-- Profits Card -->
-    <div class="bg-white rounded-lg shadow p-6">
+    <div
+      class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
       <div class="mb-4">
-        <h2 class="text-3xl font-bold text-gray-800">{{profitsData.value}}</h2>
-        <p class="text-gray-600">{{profitsData.label}}</p>
+        <div class="flex items-center justify-between mb-2">
+          <div
+            class="w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center shadow-lg">
+            <i class="bi bi-trophy-fill text-white text-2xl"></i>
+          </div>
+          <span class="text-green-600 text-sm font-semibold">+8.7%</span>
+        </div>
+        <h2 class="text-4xl font-bold text-gray-900 mb-1">
+          {{ profitsData.value }}
+        </h2>
+        <p class="text-gray-600 font-medium">{{ profitsData.label }}</p>
       </div>
       <div class="relative">
-        <canvas #profitsChart class="w-full h-16" 
-          (mousemove)="createTooltip($event, profitsChartRef, '08 Sep', 'Profits', 61)" 
+        <canvas #profitsChart class="w-full h-16"
+          (mousemove)="createTooltip($event, profitsChartRef, '08 Sep', 'Profits', 61)"
           (mouseleave)="hideTooltip()"></canvas>
-      </div>
-    </div>
-  </div>
-
-  <!-- Charts Row -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <!-- Monthly Sales Chart -->
-    <div class="bg-white rounded-lg shadow p-6">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-bold text-gray-800">Monthly Sales</h2>
-        <button class="text-gray-500">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-      </div>
-      <div class="h-64">
-        <canvas #monthlyChart></canvas>
-      </div>
-    </div>
-
-    <!-- Department Sales Chart -->
-    <div class="bg-white rounded-lg shadow p-6">
-      <div class="mb-4">
-        <h2 class="text-xl font-bold text-gray-800">Department Sales</h2>
-      </div>
-      <div class="h-64">
-        <canvas #departmentChart></canvas>
       </div>
     </div>
   </div>

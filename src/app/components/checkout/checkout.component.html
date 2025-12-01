@@ -1,218 +1,230 @@
 <app-navbar></app-navbar>
 
-<div class="min-h-screen bg-gradient-to-b from-indigo-50 via-purple-50 to-pink-50 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
-  <!-- Progress Indicator -->
-  <div class="w-full max-w-3xl mb-12">
-    <div class="flex justify-between items-center">
-      <div class="flex-1 text-center">
-        <div class="relative">
-          <div class="w-10 h-10 mx-auto rounded-full flex items-center justify-center border-2 transition-all duration-300" [ngClass]="{'border-indigo-600 bg-indigo-600 text-white': currentView === 'shipping', 'border-gray-300 bg-gray-100 text-gray-500': currentView !== 'shipping'}">
-            <span class="text-lg font-semibold">1</span>
+<div class="min-h-screen bg-gray-50 pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Checkout</h1>
+      <p class="text-gray-500">Complete your order in a few simple steps</p>
+    </div>
+
+    <!-- Progress Indicator -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-8">
+      <div class="flex justify-between items-center relative">
+        <!-- Progress Line -->
+        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-gray-100 -z-10"></div>
+        <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-primary-500 transition-all duration-500 -z-10"
+          [style.width]="currentView === 'shipping' ? '0%' : currentView === 'payment' ? '50%' : '100%'"></div>
+
+        <!-- Steps -->
+        <div class="flex flex-col items-center gap-2 bg-white px-2">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300"
+            [ngClass]="{
+              'border-primary-500 bg-primary-500 text-white shadow-lg shadow-primary-500/30': currentView === 'shipping',
+              'border-primary-500 bg-white text-primary-500': currentView !== 'shipping'
+            }">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
           </div>
-          <p class="mt-3 text-sm font-medium text-gray-600">Shipping</p>
+          <span class="text-xs font-semibold uppercase tracking-wider"
+            [class.text-primary-600]="currentView === 'shipping'">Shipping</span>
         </div>
-      </div>
-      <div class="flex-1">
-        <div class="h-0.5 bg-gray-300 mx-4 mt-5" [ngClass]="{'bg-indigo-600': currentView === 'payment' || currentView === 'confirmation'}"></div>
-      </div>
-      <div class="flex-1 text-center">
-        <div class="relative">
-          <div class="w-10 h-10 mx-auto rounded-full flex items-center justify-center border-2 transition-all duration-300" [ngClass]="{'border-indigo-600 bg-indigo-600 text-white': currentView === 'payment', 'border-gray-300 bg-gray-100 text-gray-500': currentView !== 'payment'}">
-            <span class="text-lg font-semibold">2</span>
+
+        <div class="flex flex-col items-center gap-2 bg-white px-2">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300"
+            [ngClass]="{
+              'border-primary-500 bg-primary-500 text-white shadow-lg shadow-primary-500/30': currentView === 'payment',
+              'border-primary-500 bg-white text-primary-500': currentView === 'confirmation',
+              'border-gray-200 bg-white text-gray-300': currentView === 'shipping'
+            }">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+            </svg>
           </div>
-          <p class="mt-3 text-sm font-medium text-gray-600">Payment</p>
+          <span class="text-xs font-semibold uppercase tracking-wider"
+            [class.text-primary-600]="currentView === 'payment'">Payment</span>
         </div>
-      </div>
-      <div class="flex-1">
-        <div class="h-0.5 bg-gray-300 mx-4 mt-5" [ngClass]="{'bg-indigo-600': currentView === 'confirmation'}"></div>
-      </div>
-      <div class="flex-1 text-center">
-        <div class="relative">
-          <div class="w-10 h-10 mx-auto rounded-full flex items-center justify-center border-2 transition-all duration-300" [ngClass]="{'border-indigo-600 bg-indigo-600 text-white': currentView === 'confirmation', 'border-gray-300 bg-gray-100 text-gray-500': currentView !== 'confirmation'}">
-            <span class="text-lg font-semibold">3</span>
+
+        <div class="flex flex-col items-center gap-2 bg-white px-2">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300"
+            [ngClass]="{
+              'border-primary-500 bg-primary-500 text-white shadow-lg shadow-primary-500/30': currentView === 'confirmation',
+              'border-gray-200 bg-white text-gray-300': currentView !== 'confirmation'
+            }">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
           </div>
-          <p class="mt-3 text-sm font-medium text-gray-600">Confirmation</p>
+          <span class="text-xs font-semibold uppercase tracking-wider"
+            [class.text-primary-600]="currentView === 'confirmation'">Done</span>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Main Content -->
-  <div class="w-full max-w-3xl flex flex-col items-center">
-    <!-- Shipping Address -->
-    <div class="w-full bg-white rounded-2xl shadow-lg p-8 mb-8 transition-all duration-300" [ngClass]="{'hidden': currentView !== 'shipping'}">
-      <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-t-xl p-5 flex items-center space-x-3">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-        </svg>
-        <h5 class="text-lg font-semibold">Shipping Address</h5>
-      </div>
-      <div class="p-8">
-        <div *ngIf="addresses && addresses.length > 0; else noAddresses">
-          <label for="addressSelect" class="block text-sm font-medium text-gray-700 mb-3">Select Shipping Address</label>
-          <select
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition-all duration-200 bg-white text-gray-900 text-sm"
-            id="addressSelect"
-            [(ngModel)]="selectedAddress"
-          >
-            <option *ngFor="let address of addresses" [ngValue]="address">
-              {{ address.streetAddress }}, {{ address.city }}
-            </option>
-          </select>
-          <div class="mt-6">
-            <button
-              class="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 hover:shadow-lg transition-all duration-200 flex items-center justify-center text-sm"
-              (click)="redirectToAddAddress()"
-            >
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-              </svg>
-              Add Address
-            </button>
+    <!-- Content Area -->
+    <div class="bg-white rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 p-8 animate-fade-in">
+
+      <!-- Shipping View -->
+      <div *ngIf="currentView === 'shipping'" class="space-y-6">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-xl font-bold text-gray-900">Select Shipping Address</h2>
+          <button (click)="redirectToAddAddress()"
+            class="text-sm font-medium text-primary-600 hover:text-primary-700 flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            Add New Address
+          </button>
+        </div>
+
+        <div *ngIf="addresses && addresses.length > 0; else noAddresses" class="space-y-4">
+          <div *ngFor="let address of addresses"
+            class="relative border-2 rounded-xl p-4 cursor-pointer transition-all duration-200 hover:border-primary-200"
+            [ngClass]="{'border-primary-500 bg-primary-50': selectedAddress === address, 'border-gray-100': selectedAddress !== address}"
+            (click)="selectedAddress = address">
+            <div class="flex items-start gap-3">
+              <div class="mt-1">
+                <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center"
+                  [ngClass]="{'border-primary-500': selectedAddress === address, 'border-gray-300': selectedAddress !== address}">
+                  <div class="w-2.5 h-2.5 rounded-full bg-primary-500" *ngIf="selectedAddress === address"></div>
+                </div>
+              </div>
+              <div>
+                <p class="font-medium text-gray-900">{{ address.streetAddress }}</p>
+                <p class="text-sm text-gray-500">{{ address.city }}, {{ address.state }} {{ address.zipCode }}</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- No Addresses -->
         <ng-template #noAddresses>
-          <div class="text-center">
-            <p class="text-sm text-gray-600 mb-6">No addresses available.</p>
-            <button
-              class="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 hover:shadow-lg transition-all duration-200 flex items-center justify-center text-sm"
-              (click)="redirectToAddAddress()"
-            >
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          <div class="text-center py-12 border-2 border-dashed border-gray-200 rounded-xl">
+            <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              Add Address
+            </div>
+            <p class="text-gray-500 mb-4">No addresses found</p>
+            <button (click)="redirectToAddAddress()"
+              class="px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
+              Add Your First Address
             </button>
           </div>
         </ng-template>
-        <!-- Confirm Shipping Button -->
-        <div class="mt-8">
+
+        <div class="pt-6 border-t border-gray-100">
           <button
-            class="w-full bg-green-100 text-green-700 py-3 rounded-lg hover:bg-green-200 hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center text-sm"
-            [disabled]="!selectedAddress"
-            (click)="changeView('payment')"
-          >
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            Confirm Shipping
+            class="w-full py-4 bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-primary-500/25 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            [disabled]="!selectedAddress" (click)="changeView('payment')">
+            Continue to Payment
           </button>
         </div>
       </div>
-    </div>
 
-    <!-- Payment Method -->
-    <div class="w-full bg-white rounded-2xl shadow-lg p-8 transition-all duration-300" [ngClass]="{'hidden': currentView !== 'payment'}">
-      <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-t-xl p-5 flex items-center space-x-3">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
-        </svg>
-        <h5 class="text-lg font-semibold">Payment Method</h5>
-      </div>
-      <div class="p-8">
-        <label for="paymentMethod" class="block text-sm font-medium text-gray-700 mb-3">Select Payment Method</label>
-        <select
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition-all duration-200 bg-white text-gray-900 text-sm"
-          id="paymentMethod"
-          [(ngModel)]="selectedPaymentMethod"
-        >
-          <option value="creditCard">Credit Card</option>
-          <option value="cashOnDelivery">Cash on Delivery</option>
-        </select>
+      <!-- Payment View -->
+      <div *ngIf="currentView === 'payment'" class="space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-gray-900 mb-4">Payment Method</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <label
+              class="relative border-2 rounded-xl p-4 cursor-pointer transition-all duration-200 hover:border-primary-200"
+              [ngClass]="{'border-primary-500 bg-primary-50': selectedPaymentMethod === 'creditCard', 'border-gray-100': selectedPaymentMethod !== 'creditCard'}">
+              <input type="radio" name="payment" value="creditCard" [(ngModel)]="selectedPaymentMethod" class="sr-only">
+              <div class="flex items-center gap-3">
+                <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                </svg>
+                <span class="font-medium text-gray-900">Credit Card</span>
+              </div>
+            </label>
 
-        <!-- Credit Card Details -->
-        <div *ngIf="selectedPaymentMethod === 'creditCard'" class="mt-6 space-y-6 animate-fade-in">
+            <label
+              class="relative border-2 rounded-xl p-4 cursor-pointer transition-all duration-200 hover:border-primary-200"
+              [ngClass]="{'border-primary-500 bg-primary-50': selectedPaymentMethod === 'cashOnDelivery', 'border-gray-100': selectedPaymentMethod !== 'cashOnDelivery'}">
+              <input type="radio" name="payment" value="cashOnDelivery" [(ngModel)]="selectedPaymentMethod"
+                class="sr-only">
+              <div class="flex items-center gap-3">
+                <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <span class="font-medium text-gray-900">Cash on Delivery</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Credit Card Form -->
+        <div *ngIf="selectedPaymentMethod === 'creditCard'"
+          class="space-y-4 bg-gray-50 p-6 rounded-xl border border-gray-200 animate-fade-in">
           <div>
-            <label for="cardholderName" class="block text-sm font-medium text-gray-700 mb-2">Cardholder Name</label>
-            <input
-              type="text"
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition-all duration-200 text-sm"
-              id="cardholderName"
-              [(ngModel)]="cardholderName"
-              placeholder="Enter cardholder's name"
-              required
-            />
+            <label class="block text-sm font-medium text-gray-700 mb-1">Cardholder Name</label>
+            <input type="text" [(ngModel)]="cardholderName"
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+              placeholder="John Doe" />
           </div>
           <div>
-            <label for="cardNumber" class="block text-sm font-medium text-gray-700 mb-2">Card Number</label>
-            <input
-              type="text"
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition-all duration-200 text-sm"
-              id="cardNumber"
-              [(ngModel)]="cardNumber"
-              placeholder="Enter card number"
-              maxlength="16"
-              required
-            />
+            <label class="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
+            <input type="text" [(ngModel)]="cardNumber" maxlength="16"
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+              placeholder="0000 0000 0000 0000" />
           </div>
-          <div class="grid grid-cols-2 gap-6">
+          <div class="grid grid-cols-2 gap-4">
             <div>
-              <label for="cardExpiry" class="block text-sm font-medium text-gray-700 mb-2">Expiration Date</label>
-              <input
-                type="month"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition-all duration-200 text-sm"
-                id="cardExpiry"
-                [(ngModel)]="cardExpiry"
-                placeholder="Enter Expiration Date"
-                required
-              />
+              <label class="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
+              <input type="month" [(ngModel)]="cardExpiry"
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all" />
             </div>
             <div>
-              <label for="cardCVV" class="block text-sm font-medium text-gray-700 mb-2">CVV</label>
-              <input
-                type="text"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition-all duration-200 text-sm"
-                id="cardCVV"
-                [(ngModel)]="cardCVV"
-                placeholder="Enter CVV"
-                maxlength="3"
-                required
-              />
+              <label class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
+              <input type="text" [(ngModel)]="cardCVV" maxlength="3"
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                placeholder="123" />
             </div>
           </div>
         </div>
+
+        <div class="flex gap-4 pt-6 border-t border-gray-100">
+          <button (click)="currentView = 'shipping'"
+            class="px-6 py-4 border border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-colors">
+            Back
+          </button>
+          <button
+            class="flex-1 py-4 bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-primary-500/25 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            [disabled]="selectedPaymentMethod === 'creditCard' && (!cardholderName || !cardNumber || !cardExpiry || !cardCVV)"
+            (click)="onConfirmOrder()">
+            Confirm Order
+          </button>
+        </div>
       </div>
-      <!-- Confirm Order Button -->
-      <div class="mt-8">
-        <button
-          class="w-full bg-green-100 text-green-700 py-3 rounded-lg hover:bg-green-200 hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center text-sm"
-          [disabled]="selectedPaymentMethod === 'creditCard' && (!cardholderName || !cardNumber || !cardExpiry || !cardCVV)"
-          (click)="onConfirmOrder()"
-        >
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+
+      <!-- Confirmation View -->
+      <div *ngIf="currentView === 'confirmation'" class="text-center py-12">
+        <div
+          class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce-slow">
+          <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
           </svg>
-          Confirm Order
-        </button>
-      </div>
-    </div>
-
-    <!-- Confirmation Section -->
-    <div class="w-full" [ngClass]="{'hidden': currentView !== 'confirmation'}">
-      <div class="bg-white rounded-2xl shadow-lg p-8 transition-all duration-300">
-        <div class="bg-green-50 text-green-700 p-6 rounded-lg text-center animate-fade-in">
-          <p class="text-lg font-semibold flex items-center justify-center">
-            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-            </svg>
-            Order Confirmed Successfully!
-          </p>
-          <p class="text-sm mt-2">Thank you for your purchase. You'll receive a confirmation email soon.</p>
         </div>
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Order Confirmed!</h2>
+        <p class="text-gray-500 mb-8 max-w-md mx-auto">
+          Thank you for your purchase. We've sent a confirmation email to your inbox. Your order ID is <span
+            class="font-mono font-bold text-gray-900">#ORD-{{ 123456 }}</span>
+        </p>
+        <button routerLink="/"
+          class="px-8 py-4 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors shadow-lg hover:shadow-xl">
+          Continue Shopping
+        </button>
       </div>
     </div>
   </div>
 </div>
-
-<style>
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .animate-fade-in {
-    animation: fadeIn 0.5s ease-out;
-  }
-</style>

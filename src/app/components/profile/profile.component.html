@@ -1,0 +1,123 @@
+<div
+  class="max-w-md mx-auto mt-12 p-8 bg-white rounded-2xl shadow-2xl transition-all duration-300"
+>
+  <h2
+    class="font-['Poppins'] text-3xl font-bold text-gray-800 mb-8 text-center"
+  >
+    Modify Profile
+  </h2>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="flex justify-center mb-6">
+    <div
+      class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-coral-500"
+    ></div>
+  </div>
+
+  <!-- Error Message -->
+  <div
+    *ngIf="error && !isLoading"
+    class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-lg"
+    role="alert"
+    aria-live="assertive"
+  >
+    {{ error }}
+  </div>
+
+  <!-- Success Message -->
+  <div
+    *ngIf="success && !isLoading"
+    class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-lg"
+    role="alert"
+    aria-live="polite"
+  >
+    {{ success }}
+  </div>
+
+  <!-- Profile Form -->
+  <form
+    (ngSubmit)="onSubmit()"
+    class="space-y-6"
+    [attr.aria-disabled]="isLoading"
+  >
+    <div>
+      <label
+        for="email"
+        class="font-['Poppins'] text-sm font-medium text-gray-700 block mb-2"
+      >
+        Email <span class="text-red-500">*</span>
+      </label>
+      <input
+        id="email"
+        type="email"
+        [(ngModel)]="user.email"
+        name="email"
+        class="w-full px-4 py-3 border-2 border-coral-300 rounded-full text-gray-800 focus:outline-none focus:border-coral-500 focus:ring-2 focus:ring-coral-200 transition-all duration-300 disabled:bg-gray-100"
+        placeholder="Enter your email"
+        required
+        aria-required="true"
+        [disabled]="isLoading"
+      />
+    </div>
+
+    <div>
+      <label
+        for="username"
+        class="font-['Poppins'] text-sm font-medium text-gray-700 block mb-2"
+      >
+        Username <span class="text-red-500">*</span>
+      </label>
+      <input
+        id="username"
+        type="text"
+        [(ngModel)]="user.username"
+        name="username"
+        class="w-full px-4 py-3 border-2 border-coral-300 rounded-full text-gray-800 focus:outline-none focus:border-coral-500 focus:ring-2 focus:ring-coral-200 transition-all duration-300 disabled:bg-gray-100"
+        placeholder="Enter your username"
+        required
+        aria-required="true"
+        [disabled]="isLoading"
+      />
+    </div>
+
+    <div>
+      <label
+        for="phone"
+        class="font-['Poppins'] text-sm font-medium text-gray-700 block mb-2"
+      >
+        Phone Number <span class="text-red-500">*</span>
+      </label>
+      <input
+        id="phone"
+        type="number"
+        [(ngModel)]="user.phone"
+        name="phone"
+        class="w-full px-4 py-3 border-2 border-coral-300 rounded-full text-gray-800 focus:outline-none focus:border-coral-500 focus:ring-2 focus:ring-coral-200 transition-all duration-300 disabled:bg-gray-100"
+        placeholder="Enter your phone number"
+        required
+        aria-required="true"
+        [disabled]="isLoading"
+      />
+    </div>
+
+    <div class="flex gap-4 justify-center mt-8">
+      <button
+        type="submit"
+        class="px-8 py-3 bg-coral-500 text-white font-['Poppins'] font-semibold rounded-full hover:bg-coral-600 hover:shadow-lg transition-all duration-300 disabled:bg-coral-300 disabled:cursor-not-allowed"
+        [disabled]="isLoading"
+        aria-label="Save profile changes"
+      >
+        {{ isLoading ? "Saving..." : "Save Changes" }}
+      </button>
+      <button
+        type="button"
+        (click)="cancel()"
+        class="px-8 py-3 bg-gray-300 text-gray-800 font-['Poppins'] font-semibold rounded-full hover:bg-gray-400 hover:shadow-lg transition-all duration-300 disabled:bg-gray-200 disabled:cursor-not-allowed"
+        [disabled]="isLoading"
+        aria-label="Cancel changes"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

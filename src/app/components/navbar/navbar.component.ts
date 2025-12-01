@@ -23,8 +23,6 @@ export class NavbarComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       this.userName = localStorage.getItem('userName') || 'Guest';
       this.cartCount = Number(localStorage.getItem('cartCount')) || 0;
-      // Optional: Subscribe to a cart service for real-time updates
-      // e.g., this.cartService.cartCount$.subscribe(count => this.cartCount = count);
     }
   }
 
@@ -35,14 +33,15 @@ export class NavbarComponent implements OnInit {
     return false;
   }
 
-  logout(): void {
+  logout(event: Event): void {
+    event.stopPropagation(); // Prevent click from bubbling to document
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('token');
       localStorage.removeItem('userName');
       localStorage.removeItem('cartCount');
       this.cartCount = 0;
       this.userName = '';
-      this.closeDropdown();
+      this.isDropdownOpen = false; // Close dropdown after logout
       this.router.navigate(['/sign-in']);
     }
   }
@@ -71,7 +70,8 @@ export class NavbarComponent implements OnInit {
     return this.router.url.includes('/sign-up');
   }
 
-  toggleDropdown(): void {
+  toggleDropdown(event: Event): void {
+    event.stopPropagation(); // Prevent click from bubbling to document
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
@@ -83,6 +83,14 @@ export class NavbarComponent implements OnInit {
   onDocumentClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
     const dropdown = document.querySelector('.nav-dropdown');
+    const logoutLink = target.closest('a.text-red-600');
+
+    // Do not close dropdown if clicking logout link
+    if (logoutLink) {
+      return;
+    }
+
+    // Close dropdown if clicking outside
     if (dropdown && !dropdown.contains(target)) {
       this.closeDropdown();
     }
@@ -90,7 +98,6 @@ export class NavbarComponent implements OnInit {
 
   onSearch(): void {
     if (this.searchQuery.trim()) {
-      // Navigate to search results page with query parameter
       this.router.navigate(['/search'], { queryParams: { q: this.searchQuery } });
     }
   }

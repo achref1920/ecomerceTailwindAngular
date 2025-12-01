@@ -1,29 +1,44 @@
 <app-navbar></app-navbar>
 
-<div class="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 py-8 px-4">
-  <h2 class="text-center text-3xl font-bold text-gray-600 mb-8">Order Details</h2>
+<div class="min-h-screen bg-gray-50 py-8 px-4">
+  <h2 class="text-center text-3xl font-bold text-slate-900 mb-8">
+    Order Details
+  </h2>
 
   <div *ngIf="order; else noOrder">
-    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg transform transition-all hover:scale-101 hover:shadow-xl duration-300">
-      <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-t-xl p-4 flex justify-between items-center">
+    <div
+      class="max-w-4xl mx-auto bg-white rounded-xl shadow-md border border-gray-200 transform transition-all hover:shadow-lg duration-300"
+    >
+      <div
+        class="bg-gradient-to-r from-slate-800 to-slate-900 text-white rounded-t-xl p-4 flex justify-between items-center"
+      >
         <div>
           <h5 class="text-lg font-semibold mb-2">Order ID: {{ order.id }}</h5>
           <p class="mb-1 text-sm">
-            <strong>Order Date:</strong> {{ order.orderDate | date:'medium' }}
+            <strong>Order Date:</strong> {{ order.orderDate | date : "medium" }}
           </p>
           <p class="mb-0 text-sm">
-            <strong>Total Price:</strong> {{ order.totalPrice }}TND
+            <strong>Total Price:</strong> {{ order.totalPrice }} TND
           </p>
         </div>
-        <span class="bg-yellow-400 text-slate-900 px-3 py-1 rounded-full text-sm font-medium shadow-sm">
+        <span
+          class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-sm"
+        >
           {{ order.status }}
         </span>
       </div>
 
-      <div class="p-4 bg-gray-50 rounded-b-xl">
+      <div class="p-4 bg-white rounded-b-xl">
         <!-- Order Items Section -->
-        <h5 class="text-indigo-600 text-lg font-semibold border-b border-gray-200 pb-2 mb-4">Items in Order</h5>
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center border-b border-gray-200 py-2" *ngFor="let item of order.orderItems">
+        <h5
+          class="text-slate-900 text-lg font-semibold border-b border-gray-200 pb-2 mb-4"
+        >
+          Items in Order
+        </h5>
+        <div
+          class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center border-b border-gray-200 py-2"
+          *ngFor="let item of order.orderItems"
+        >
           <div class="col-span-3 md:col-span-2 text-center">
             <img
               [src]="item.productImgUrl"
@@ -32,26 +47,53 @@
             />
           </div>
           <div class="col-span-9 md:col-span-10">
-            <h6 class="text-lg font-bold text-gray-800">{{ item.productName }}</h6>
-            <p class="text-sm text-gray-600 mb-1">
+            <h6 class="text-lg font-bold text-slate-900">
+              {{ item.productName }}
+            </h6>
+            <p class="text-sm text-slate-600 mb-1">
               <strong>Quantity:</strong> {{ item.quantity }}
             </p>
-            <p class="text-sm text-gray-600 mb-0">
-              <strong>Price per Unit:</strong> {{ item.price }}TND
+            <p class="text-sm text-slate-600 mb-0">
+              <strong>Price per Unit:</strong> {{ item.price }} TND
             </p>
           </div>
         </div>
 
         <!-- Shipping Address Section -->
         <div class="mt-4">
-          <h5 class="text-indigo-600 text-lg font-semibold border-b border-gray-200 pb-2 mb-4">Shipping Address</h5>
-          <p class="mb-1 text-gray-600">
-            <i class="bi bi-geo-alt mr-1"></i> {{ order.shippingAddress.streetAddress }}
+          <h5
+            class="text-slate-900 text-lg font-semibold border-b border-gray-200 pb-2 mb-4"
+          >
+            Shipping Address
+          </h5>
+          <p class="mb-1 text-slate-600">
+            <svg
+              class="w-4 h-4 inline mr-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
+            {{ order.shippingAddress.streetAddress }}
           </p>
-          <p class="mb-1 text-gray-600">
-            {{ order.shippingAddress.city }}, {{ order.shippingAddress.state }} - {{ order.shippingAddress.zipCode }}
+          <p class="mb-1 text-slate-600">
+            {{ order.shippingAddress.city }},
+            {{ order.shippingAddress.state }} -
+            {{ order.shippingAddress.zipCode }}
           </p>
-          <p class="mb-0 text-gray-600">{{ order.shippingAddress.country }}</p>
+          <p class="mb-0 text-slate-600">{{ order.shippingAddress.country }}</p>
         </div>
       </div>
     </div>
@@ -59,18 +101,53 @@
 
   <!-- No Order Found -->
   <ng-template #noOrder>
-    <div class="max-w-md mx-auto bg-white rounded-xl shadow-lg p-6 text-center mt-8 transform transition-all hover:scale-105 duration-300">
-      <p class="text-yellow-600 text-lg">No order details found!</p>
+    <div
+      class="max-w-md mx-auto bg-white rounded-xl shadow-md border border-gray-200 p-8 text-center mt-8 transform transition-all hover:scale-105 duration-300"
+    >
+      <div
+        class="inline-flex items-center justify-center w-20 h-20 bg-orange-100 rounded-full mb-4"
+      >
+        <svg
+          class="w-10 h-10 text-orange-600"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+          />
+        </svg>
+      </div>
+      <p class="text-slate-900 font-bold text-xl mb-2">No Order Found</p>
+      <p class="text-slate-600 text-sm">Order details not available!</p>
     </div>
   </ng-template>
 
   <!-- Back to Orders Button -->
   <div class="text-center mt-8">
     <button
-      class="bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 transition-all duration-200 transform hover:-translate-y-1 hover:shadow-lg flex items-center justify-center gap-2 mx-auto"
+      class="bg-orange-600 text-white py-3 px-6 rounded-lg hover:bg-orange-700 focus:ring-4 focus:ring-orange-300 transition-all duration-200 transform hover:-translate-y-1 hover:shadow-lg flex items-center justify-center gap-2 mx-auto font-semibold"
       (click)="goBack()"
     >
-      <i class="bi bi-arrow-left"></i> Back to Orders
+      <svg
+        class="w-5 h-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M10 19l-7-7m0 0l7-7m-7 7h18"
+        />
+      </svg>
+      Back to Orders
     </button>
   </div>
 </div>
+
+<app-footer></app-footer>

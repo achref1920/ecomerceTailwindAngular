@@ -13,9 +13,11 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+    {path: 'profile', component: ProfileComponent},
   { path: 'sign-up', component: SignUpComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'admin', component: AdminLoginComponent },
@@ -29,7 +31,9 @@ const routes: Routes = [
   {
     path:'dashboard',component:DashboardComponent
   },
+
   { path: '**', component: ErrorComponent },
+  
   
 ];
 

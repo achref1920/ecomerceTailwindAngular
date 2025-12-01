@@ -1,192 +1,244 @@
-<nav class="bg-gradient-to-r from-teal-500 to-purple-600 text-white py-4 sticky top-0 z-50 shadow-xl backdrop-blur-md">
-  <div class="max-w-7xl mx-auto flex items-center justify-between px-6">
-    <!-- Brand Name -->
-    <a class="flex items-center gap-3 font-['Poppins'] text-3xl font-extrabold text-white hover:text-coral-300 transition-all duration-300 hover:scale-105 hover:drop-shadow-lg" href="/">
-      comeBuy
-    </a>
+<nav class="fixed top-0 w-full z-50 glass-dark transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <!-- Logo / Brand -->
+      <div class="flex-shrink-0">
+        <a href="/" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-600 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-all duration-300 shadow-lg shadow-primary-500/30">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+          </div>
+          <span class="text-2xl font-display font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 group-hover:from-primary-400 group-hover:to-secondary-400 transition-all duration-300">
+            comeBuy
+          </span>
+        </a>
+      </div>
 
-    <!-- Hamburger Button for Mobile -->
-    <label class="lg:hidden cursor-pointer">
-      <input type="checkbox" class="peer hidden" aria-controls="mobile-menu" aria-label="Toggle navigation" />
-      <svg class="w-7 h-7 text-white block peer-checked:hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
-        <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
-      </svg>
-      <svg class="w-7 h-7 text-white hidden peer-checked:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
-        <path d="M400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256Z" />
-      </svg>
-    </label>
-
-    <!-- Navbar Center (Search, Cart, Orders, Checkout) -->
-    <ul class="hidden lg:flex items-center gap-8 list-none m-0 p-0">
-      <!-- Search Bar (Only on Home Page) -->
-      <li class="nav-search" *ngIf="isHomePage()">
-        <form class="flex" (ngSubmit)="onSearch()">
+      <!-- Search Bar - Desktop -->
+      <div class="hidden lg:flex flex-1 max-w-2xl mx-12" *ngIf="isHomePage()">
+        <form class="w-full relative group" (ngSubmit)="onSearch()">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+            <svg class="w-5 h-5 text-gray-400 group-focus-within:text-primary-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
           <input
             type="search"
-            placeholder ="Search products..."
+            placeholder="Search for products..."
             [(ngModel)]="searchQuery"
             name="search"
-            class="px-4 py-2 rounded-l-full border-2 border-coral-300 bg-white text-gray-800 focus:outline-none focus:border-coral-400 focus:ring-2 focus:ring-coral-200 transition-all duration-300"
+            class="w-full pl-12 pr-4 py-3 bg-gray-800/50 border border-gray-700/50 rounded-xl text-gray-100 placeholder-gray-500 focus:outline-none focus:border-primary-500/50 focus:ring-4 focus:ring-primary-500/10 focus:bg-gray-800 transition-all duration-300"
           />
           <button
             type="submit"
-            class="px-4 py-2 bg-coral-300 text-gray-800 rounded-r-full hover:bg-coral-400 hover:shadow-lg transition-all duration-300"
+            class="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-1.5 bg-gradient-to-r from-primary-600 to-secondary-600 text-white text-sm font-medium rounded-lg hover:shadow-lg hover:shadow-primary-500/25 transition-all duration-300 transform hover:-translate-y-0.5"
           >
-            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+            Search
           </button>
         </form>
-      </li>
+      </div>
 
-      <!-- My Cart Text (Only on Cart Page) -->
-      <li class="font-['Poppins'] text-lg font-semibold text-white hover:text-coral-300 transition-colors duration-300" *ngIf="isCartPage()">My Cart</li>
+      <!-- Page Title - Desktop -->
+      <div class="hidden lg:flex flex-1 justify-center" *ngIf="!isHomePage()">
+        <h1 class="text-2xl font-display font-bold text-white tracking-tight">
+          <span *ngIf="isCartPage()" class="flex items-center gap-2">
+            <span class="text-primary-400">🛒</span> My Cart
+          </span>
+          <span *ngIf="isOrdersPage()" class="flex items-center gap-2">
+            <span class="text-primary-400">📦</span> My Orders
+          </span>
+          <span *ngIf="isCheckoutPage()" class="flex items-center gap-2">
+            <span class="text-primary-400">💳</span> Checkout
+          </span>
+        </h1>
+      </div>
 
-      <!-- My Orders Text (Only on Orders Page) -->
-      <li class="font-['Poppins'] text-lg font-semibold text-white hover:text-coral-300 transition-colors duration-300" *ngIf="isOrdersPage()">My Orders</li>
-
-      <!-- Checkout Text (Only on Checkout Page) -->
-      <li class="font-['Poppins'] text-lg font-semibold text-white hover:text-coral-300 transition-colors duration-300" *ngIf="isCheckoutPage()">Checkout</li>
-    </ul>
-
-    <!-- Navbar End (Profile, Sign In/Up, Orders, Cart) -->
-    <ul class="hidden lg:flex items-center gap-6 list-none m-0 p-0">
-      <!-- Profile Dropdown (If Logged In) -->
-      <li class="relative group nav-dropdown" *ngIf="isLoggedIn()">
-        <label
-          class="flex items-center gap-2 font-['Poppins'] text-sm font-semibold text-white px-4 py-2 border-2 border-coral-300 rounded-full bg-transparent cursor-pointer hover:bg-coral-300 hover:text-gray-800 hover:shadow-lg transition-all duration-300"
-          (click)="toggleDropdown()"
-          aria-haspopup="true"
-          [attr.aria-expanded]="isDropdownOpen"
-        >
-          <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-          </svg>
-          <span>{{ userName }}</span>
-        </label>
-        <ul class="hidden group-hover:block absolute top-full right-0 bg-white text-gray-800 mt-3 p-4 rounded-xl shadow-xl min-w-[200px] opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-          <li>
-            <a routerLink="/addresses" (click)="closeDropdown()" class="block px-4 py-2 font-['Poppins'] text-sm hover:bg-gray-100 hover:rounded transition-colors duration-300">My Addresses</a>
-          </li>
-          <li>
-            <a class="block px-4 py-2 font-['Poppins'] text-sm text-red-600 hover:bg-gray-100 hover:rounded transition-colors duration-300" (click)="logout()">Logout</a>
-          </li>
-        </ul>
-      </li>
-
-      <!-- If Not Logged In -->
-      <ng-container *ngIf="!isLoggedIn()">
-        <!-- Sign Up on Login Page -->
-        <li class="nav-item" *ngIf="isLoginPage()">
-          <a routerLink="/sign-up" class="flex items-center gap-2 font-['Poppins'] text-sm font-semibold text-white px-4 py-2 border-2 border-coral-300 rounded-full hover:bg-coral-300 hover:text-gray-800 hover:shadow-lg transition-all duration-300">
-            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+      <!-- Right Side Navigation - Desktop -->
+      <div class="hidden lg:flex items-center gap-4">
+        <!-- Profile Dropdown -->
+        <div class="relative" *ngIf="isLoggedIn()">
+          <button
+            (click)="toggleDropdown($event)"
+            class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-white/10"
+            [class.bg-white-5]="isDropdownOpen"
+          >
+            <div class="w-9 h-9 bg-gradient-to-br from-primary-500 to-secondary-600 rounded-full flex items-center justify-center shadow-lg shadow-primary-500/20">
+              <span class="text-sm font-bold text-white">{{ userName.charAt(0).toUpperCase() }}</span>
+            </div>
+            <div class="flex flex-col items-start">
+              <span class="text-xs text-gray-400">Welcome back,</span>
+              <span class="text-sm font-semibold text-white leading-none">{{ userName }}</span>
+            </div>
+            <svg class="w-4 h-4 text-gray-400 transition-transform duration-300" [class.rotate-180]="isDropdownOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
+          </button>
+
+          <!-- Dropdown Menu -->
+          <div
+            *ngIf="isDropdownOpen"
+            class="absolute right-0 mt-4 w-64 bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-xl border border-gray-700/50 py-2 transform origin-top-right transition-all duration-200 animate-fade-in nav-dropdown"
+          >
+            <div class="px-4 py-3 border-b border-gray-700/50 mb-2">
+              <p class="text-sm text-gray-400">Signed in as</p>
+              <p class="text-sm font-semibold text-white truncate">{{ userName }}</p>
+            </div>
+            
+            <a routerLink="/profile" (click)="closeDropdown()" class="flex items-center px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors mx-2 rounded-lg group">
+              <div class="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center mr-3 group-hover:bg-primary-500/20 group-hover:text-primary-400 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+              Modify Profile
+            </a>
+            
+            <a routerLink="/addresses" (click)="closeDropdown()" class="flex items-center px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors mx-2 rounded-lg group">
+              <div class="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center mr-3 group-hover:bg-primary-500/20 group-hover:text-primary-400 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              My Addresses
+            </a>
+
+            <div class="border-t border-gray-700/50 my-2 pt-2"></div>
+            
+            <button (click)="logout($event)" class="flex items-center w-full px-4 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors mx-2 rounded-lg group">
+              <div class="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center mr-3 group-hover:bg-red-500/20 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+              </div>
+              Sign Out
+            </button>
+          </div>
+        </div>
+
+        <!-- Auth Buttons -->
+        <div class="flex items-center gap-3" *ngIf="!isLoggedIn()">
+          <a routerLink="/sign-in" class="px-5 py-2.5 text-sm font-medium text-gray-300 hover:text-white transition-colors">
+            Sign In
+          </a>
+          <a routerLink="/sign-up" class="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-xl hover:shadow-lg hover:shadow-primary-500/25 transition-all duration-300 transform hover:-translate-y-0.5">
             Sign Up
           </a>
-        </li>
+        </div>
 
-        <!-- Sign In on Signup Page -->
-        <li class="nav-item" *ngIf="isSignupPage()">
-          <a routerLink="/sign-in" class="flex items-center gap-2 font-['Poppins'] text-sm font-semibold text-white px-4 py-2 border-2 border-coral-300 rounded-full hover:bg-coral-300 hover:text-gray-800 hover:shadow-lg transition-all duration-300">
-            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-            Sign In
-          </a>
-        </li>
-
-        <!-- Sign In on Other Pages -->
-        <li class="nav-item" *ngIf="!isLoginPage() && !isSignupPage()">
-          <a routerLink="/sign-in" class="flex items-center gap-2 font-['Poppins'] text-sm font-semibold text-white px-4 py-2 border-2 border-coral-300 rounded-full hover:bg-coral-300 hover:text-gray-800 hover:shadow-lg transition-all duration-300">
-            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-            Sign In
-          </a>
-        </li>
-      </ng-container>
-
-      <!-- Orders (If Logged In) -->
-      <li class="nav-item" *ngIf="isLoggedIn()">
-        <a routerLink="/orders" class="flex items-center gap-2 font-['Poppins'] text-sm font-semibold text-white px-4 py-2 border-2 border-coral-300 rounded-full hover:bg-coral-300 hover:text-gray-800 hover:shadow-lg transition-all duration-300">
-          <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0v6l-8 4m8-10l-8 4m0 0l-8-4m8 4V3" />
+        <!-- Orders -->
+        <a *ngIf="isLoggedIn()" routerLink="/orders" class="p-2.5 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-300 relative group" title="My Orders">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
           </svg>
-          Orders
         </a>
-      </li>
 
-      <!-- Cart (If Logged In) -->
-      <li class="nav-item relative" *ngIf="isLoggedIn()">
-        <a routerLink="/my-cart" class="flex items-center gap-2 font-['Poppins'] text-sm font-semibold text-white px-4 py-2 border-2 border-coral-300 rounded-full hover:bg-coral-300 hover:text-gray-800 hover:shadow-lg transition-all duration-300">
-          <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+        <!-- Cart -->
+        <a *ngIf="isLoggedIn()" routerLink="/my-cart" class="relative p-2.5 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-300 group" title="Cart">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
           </svg>
-          Cart
-          <span *ngIf="cartCount > 0" class="absolute -top-2 -right-2 bg-coral-400 text-gray-800 font-['Poppins'] text-xs font-bold px-2 py-1 rounded-full shadow-md animate-pulse">{{ cartCount }}</span>
+          <span *ngIf="cartCount > 0" class="absolute top-1 right-1 w-5 h-5 bg-gradient-to-r from-red-500 to-pink-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-gray-900 shadow-sm transform scale-100 group-hover:scale-110 transition-transform">
+            {{ cartCount }}
+          </span>
         </a>
-      </li>
-    </ul>
+      </div>
 
-    <!-- Mobile Menu -->
-    <div class="hidden peer-checked:block lg:!hidden absolute top-full left-0 right-0 bg-white text-gray-800 p-6 shadow-2xl transform translate-y-0 opacity-100 transition-all duration-300 animate-slide-in">
-      <ul class="list-none m-0 p-0 space-y-4">
-        <!-- Search Bar (Only on Home Page) -->
-        <li class="mobile-search" *ngIf="isHomePage()">
-          <form class="flex" (ngSubmit)="onSearch()">
-            <input
-              type="search"
-              placeholder="Search products..."
-              [(ngModel)]="searchQuery"
-              name="search"
-              class="px-4 py-2 rounded-l-full border-2 border-coral-300 bg-white text-gray-800 focus:outline-none focus:border-coral-400 focus:ring-2 focus:ring-coral-200 transition-all duration-300 w-full"
-            />
-            <button
-              type="submit"
-              class="px-4 py-2 bg-coral-300 text-gray-800 rounded-r-full hover:bg-coral-400 hover:shadow-lg transition-all duration-300"
-            >
-              <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </button>
-          </form>
-        </li>
-        <!-- Profile Options (If Logged In) -->
-        <li class="font-['Poppins'] text-lg font-semibold" *ngIf="isLoggedIn()">
-          <span>{{ userName }}</span>
-          <ul class="list-none m-0 mt-2 pl-4 space-y-2">
-            <li><a routerLink="/addresses" class="block px-4 py-2 font-['Poppins'] text-sm text-gray-800 hover:bg-gray-100 hover:rounded transition-colors duration-300">My Addresses</a></li>
-            <li><a class="block px-4 py-2 font-['Poppins'] text-sm text-red-600 hover:bg-gray-100 hover:rounded transition-colors duration-300" (click)="logout()">Logout</a></li>
-          </ul>
-        </li>
-        <!-- My Cart Text (Only on Cart Page) -->
-        <li class="font-['Poppins'] text-lg font-semibold" *ngIf="isCartPage()">My Cart</li>
-        <!-- My Orders Text (Only on Orders Page) -->
-        <li class="font-['Poppins'] text-lg font-semibold" *ngIf="isOrdersPage()">My Orders</li>
-        <!-- Checkout Text (Only on Checkout Page) -->
-        <li class="font-['Poppins'] text-lg font-semibold" *ngIf="isCheckoutPage()">Checkout</li>
-        <!-- If Not Logged In -->
-        <ng-container *ngIf="!isLoggedIn()">
-          <li *ngIf="isLoginPage()">
-            <a routerLink="/sign-up" class="block px-4 py-2 font-['Poppins'] text-sm text-gray-800 hover:bg-gray-100 hover:rounded transition-colors duration-300">Sign Up</a>
-          </li>
-          <li *ngIf="isSignupPage()">
-            <a routerLink="/sign-in" class="block px-4 py-2 font-['Poppins'] text-sm text-gray-800 hover:bg-gray-100 hover:rounded transition-colors duration-300">Sign In</a>
-          </li>
-          <li *ngIf="!isLoginPage() && !isSignupPage()">
-            <a routerLink="/sign-in" class="block px-4 py-2 font-['Poppins'] text-sm text-gray-800 hover:bg-gray-100 hover:rounded transition-colors duration-300">Sign In</a>
-          </li>
-        </ng-container>
-        <!-- Orders (If Logged In) -->
-        <li *ngIf="isLoggedIn()">
-          <a routerLink="/orders" class="block px-4 py-2 font-['Poppins'] text-sm text-gray-800 hover:bg-gray-100 hover:rounded transition-colors duration-300">Orders</a>
-        </li>
-        <!-- Cart (If Logged In) -->
-        <li *ngIf="isLoggedIn()">
-          <a routerLink="/my-cart" class="block px-4 py-2 font-['Poppins'] text-sm text-gray-800 hover:bg-gray-100 hover:rounded transition-colors duration-300">Cart</a>
-        </li>
-      </ul>
+      <!-- Mobile Menu Button -->
+      <div class="lg:hidden flex items-center gap-4">
+        <a *ngIf="isLoggedIn()" routerLink="/my-cart" class="relative p-2 text-gray-400">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+          </svg>
+          <span *ngIf="cartCount > 0" class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+            {{ cartCount }}
+          </span>
+        </a>
+        
+        <label class="cursor-pointer p-2 hover:bg-white/5 rounded-lg transition-colors">
+          <input type="checkbox" class="peer hidden" id="mobile-menu-toggle" />
+          <svg class="w-6 h-6 text-white block peer-checked:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg class="w-6 h-6 text-white hidden peer-checked:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+
+          <!-- Mobile Menu Dropdown -->
+          <div class="peer-checked:block hidden absolute top-20 left-0 right-0 bg-gray-900/95 backdrop-blur-xl border-t border-gray-700/50 shadow-2xl animate-slide-in">
+            <div class="px-4 py-6 space-y-4">
+              <!-- Mobile Search -->
+              <div *ngIf="isHomePage()">
+                <form (ngSubmit)="onSearch()">
+                  <div class="relative">
+                    <input
+                      type="search"
+                      placeholder="Search products..."
+                      [(ngModel)]="searchQuery"
+                      name="search"
+                      class="w-full pl-4 pr-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-primary-500"
+                    />
+                    <button type="submit" class="mt-3 w-full py-3 bg-primary-600 text-white font-semibold rounded-xl">
+                      Search
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Mobile Profile -->
+              <div *ngIf="isLoggedIn()" class="bg-gray-800/50 rounded-xl p-4 border border-gray-700/50">
+                <div class="flex items-center gap-3 mb-4">
+                  <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-600 rounded-full flex items-center justify-center">
+                    <span class="text-lg font-bold text-white">{{ userName.charAt(0).toUpperCase() }}</span>
+                  </div>
+                  <div>
+                    <p class="text-xs text-gray-400">Signed in as</p>
+                    <p class="font-semibold text-white">{{ userName }}</p>
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <a routerLink="/profile" class="flex items-center gap-3 p-3 rounded-lg hover:bg-white/5 text-gray-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    Modify Profile
+                  </a>
+                  <a routerLink="/addresses" class="flex items-center gap-3 p-3 rounded-lg hover:bg-white/5 text-gray-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    My Addresses
+                  </a>
+                  <a routerLink="/orders" class="flex items-center gap-3 p-3 rounded-lg hover:bg-white/5 text-gray-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    My Orders
+                  </a>
+                </div>
+                <button (click)="logout($event)" class="w-full mt-4 py-3 flex items-center justify-center gap-2 text-red-400 bg-red-500/10 hover:bg-red-500/20 rounded-xl transition-colors">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                  </svg>
+                  Sign Out
+                </button>
+              </div>
+
+              <!-- Mobile Auth -->
+              <div *ngIf="!isLoggedIn()" class="space-y-3">
+                <a routerLink="/sign-in" class="block w-full py-3 text-center text-white bg-gray-800 rounded-xl font-semibold">
+                  Sign In
+                </a>
+                <a routerLink="/sign-up" class="block w-full py-3 text-center text-white bg-primary-600 rounded-xl font-semibold">
+                  Sign Up
+                </a>
+              </div>
+            </div>
+          </div>
+        </label>
+      </div>
     </div>
   </div>
 </nav>

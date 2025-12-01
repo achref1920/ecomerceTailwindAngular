@@ -1,149 +1,134 @@
-<div class="flex min-h-screen bg-gradient-to-br from-teal-50 via-blue-50 to-coral-50">
+<div class="flex min-h-screen bg-gray-50 relative overflow-hidden">
   <!-- Sidebar -->
   <div
-    class="w-64 bg-gradient-to-b from-teal-700 to-blue-800 text-white p-6 shadow-2xl transition-all duration-500 lg:w-72 fixed h-full z-30 backdrop-blur-md transform lg:translate-x-0"
-    [ngClass]="{'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen}"
-  >
+    class="w-64 bg-gray-900 text-white p-6 shadow-2xl transition-all duration-500 lg:w-72 fixed h-full z-30 transform lg:translate-x-0"
+    [ngClass]="{'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen}">
     <div class="flex justify-between items-center mb-8">
-      <h4 class="text-2xl font-extrabold text-coral-300 font-['Poppins'] animate-[fadeIn_1s_ease-out]">
-        Admin Panel
-      </h4>
-      <button
-        class="lg:hidden text-white hover:text-coral-300 transition-colors duration-300"
-        (click)="toggleSidebar()"
-        aria-label="Toggle sidebar"
-      >
+      <div class="flex items-center gap-3">
+        <div
+          class="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-600 rounded-xl flex items-center justify-center shadow-lg">
+          <i class="bi bi-shield-check text-white text-xl"></i>
+        </div>
+        <h4 class="text-2xl font-extrabold text-white font-display">
+          Admin
+        </h4>
+      </div>
+      <button class="lg:hidden text-white hover:text-primary-400 transition-colors duration-300"
+        (click)="toggleSidebar()" aria-label="Toggle sidebar">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
       </button>
     </div>
-    <ul class="space-y-4 flex flex-col h-[calc(100%-4rem)] justify-between">
+    <ul class="space-y-3 flex flex-col h-[calc(100%-4rem)] justify-between">
       <div>
         <li>
           <button
-            class="w-full px-4 py-3 text-left rounded-xl transition-all duration-300 border-2 border-teal-500 hover:bg-teal-600 hover:border-coral-300 hover:shadow-[0_0_10px_rgba(255,107,107,0.4)] focus:ring-4 focus:ring-coral-200 flex items-center gap-3 text-sm font-semibold"
-            [ngClass]="{'bg-gradient-to-r from-teal-500 to-blue-600 border-coral-300 shadow-[0_0_15px_rgba(255,107,107,0.5)]': currentSection === 'dashboard'}"
-            (click)="navigateTo('dashboard')"
-          >
-            <i class="bi bi-people-fill text-lg"></i> Dashboard
+            class="w-full px-4 py-3 text-left rounded-xl transition-all duration-300 hover:bg-gray-800 focus:ring-4 focus:ring-primary-400/50 flex items-center gap-3 text-sm font-semibold group"
+            [ngClass]="{'bg-gradient-to-r from-primary-600 to-secondary-600 shadow-lg': currentSection === 'dashboard'}"
+            (click)="navigateTo('dashboard')">
+            <i class="bi bi-speedometer2 text-lg group-hover:scale-110 transition-transform duration-300"></i>
+            <span>Dashboard</span>
           </button>
         </li>
         <li>
           <button
-            class="w-full px-4 py-3 text-left rounded-xl transition-all duration-300 border-2 border-teal-500 hover:bg-teal-600 hover:border-coral-300 hover:shadow-[0_0_10px_rgba(255,107,107,0.4)] focus:ring-4 focus:ring-coral-200 flex items-center gap-3 text-sm font-semibold"
-            [ngClass]="{'bg-gradient-to-r from-teal-500 to-blue-600 border-coral-300 shadow-[0_0_15px_rgba(255,107,107,0.5)]': currentSection === 'users'}"
-            (click)="navigateTo('users')"
-          >
-            <i class="bi bi-people-fill text-lg"></i> Users
+            class="w-full px-4 py-3 text-left rounded-xl transition-all duration-300 hover:bg-gray-800 focus:ring-4 focus:ring-primary-400/50 flex items-center gap-3 text-sm font-semibold group"
+            [ngClass]="{'bg-gradient-to-r from-primary-600 to-secondary-600 shadow-lg': currentSection === 'users'}"
+            (click)="navigateTo('users')">
+            <i class="bi bi-people-fill text-lg group-hover:scale-110 transition-transform duration-300"></i>
+            <span>Users</span>
           </button>
         </li>
         <li>
           <button
-            class="w-full px-4 py-3 text-left rounded-xl transition-all duration-300 border-2 border-teal-500 hover:bg-teal-600 hover:border-coral-300 hover:shadow-[0_0_10px_rgba(255,107,107,0.4)] focus:ring-4 focus:ring-coral-200 flex items-center gap-3 text-sm font-semibold"
-            [ngClass]="{'bg-gradient-to-r from-teal-500 to-blue-600 border-coral-300 shadow-[0_0_15px_rgba(255,107,107,0.5)]': currentSection === 'categories'}"
-            (click)="navigateTo('categories')"
-          >
-            <i class="bi bi-tags-fill text-lg"></i> Categories
+            class="w-full px-4 py-3 text-left rounded-xl transition-all duration-300 hover:bg-gray-800 focus:ring-4 focus:ring-primary-400/50 flex items-center gap-3 text-sm font-semibold group"
+            [ngClass]="{'bg-gradient-to-r from-primary-600 to-secondary-600 shadow-lg': currentSection === 'categories'}"
+            (click)="navigateTo('categories')">
+            <i class="bi bi-tags-fill text-lg group-hover:scale-110 transition-transform duration-300"></i>
+            <span>Categories</span>
           </button>
         </li>
         <li>
           <button
-            class="w-full px-4 py-3 text-left rounded-xl transition-all duration-300 border-2 border-teal-500 hover:bg-teal-600 hover:border-coral-300 hover:shadow-[0_0_10px_rgba(255,107,107,0.4)] focus:ring-4 focus:ring-coral-200 flex items-center gap-3 text-sm font-semibold"
-            [ngClass]="{'bg-gradient-to-r from-teal-500 to-blue-600 border-coral-300 shadow-[0_0_15px_rgba(255,107,107,0.5)]': currentSection === 'products'}"
-            (click)="navigateTo('products')"
-          >
-            <i class="bi bi-box-seam text-lg"></i> Products
+            class="w-full px-4 py-3 text-left rounded-xl transition-all duration-300 hover:bg-gray-800 focus:ring-4 focus:ring-primary-400/50 flex items-center gap-3 text-sm font-semibold group"
+            [ngClass]="{'bg-gradient-to-r from-primary-600 to-secondary-600 shadow-lg': currentSection === 'products'}"
+            (click)="navigateTo('products')">
+            <i class="bi bi-box-seam text-lg group-hover:scale-110 transition-transform duration-300"></i>
+            <span>Products</span>
           </button>
         </li>
         <li>
           <button
-            class="w-full px-4 py-3 text-left rounded-xl transition-all duration-300 border-2 border-teal-500 hover:bg-teal-600 hover:border-coral-300 hover:shadow-[0_0_10px_rgba(255,107,107,0.4)] focus:ring-4 focus:ring-coral-200 flex items-center gap-3 text-sm font-semibold"
-            [ngClass]="{'bg-gradient-to-r from-teal-500 to-blue-600 border-coral-300 shadow-[0_0_15px_rgba(255,107,107,0.5)]': currentSection === 'orders'}"
-            (click)="navigateTo('orders')"
-          >
-            <i class="bi bi-cart-check-fill text-lg"></i> Orders
+            class="w-full px-4 py-3 text-left rounded-xl transition-all duration-300 hover:bg-gray-800 focus:ring-4 focus:ring-primary-400/50 flex items-center gap-3 text-sm font-semibold group"
+            [ngClass]="{'bg-gradient-to-r from-primary-600 to-secondary-600 shadow-lg': currentSection === 'orders'}"
+            (click)="navigateTo('orders')">
+            <i class="bi bi-cart-check-fill text-lg group-hover:scale-110 transition-transform duration-300"></i>
+            <span>Orders</span>
           </button>
         </li>
       </div>
       <li>
         <button
-          class="w-full px-4 py-3 text-left rounded-xl transition-all duration-300 border-2 border-teal-500 hover:bg-red-600 hover:border-red-300 hover:shadow-[0_0_10px_rgba(239,68,68,0.4)] focus:ring-4 focus:ring-red-200 flex items-center gap-3 text-sm font-semibold"
-          (click)="logout()"
-        >
-          <i class="bi bi-box-arrow-right text-lg"></i> Logout
+          class="w-full px-4 py-3 text-left rounded-xl transition-all duration-300 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 focus:ring-4 focus:ring-red-400/50 flex items-center gap-3 text-sm font-semibold group"
+          (click)="logout()">
+          <i class="bi bi-box-arrow-right text-lg group-hover:translate-x-1 transition-transform duration-300"></i>
+          <span>Logout</span>
         </button>
       </li>
     </ul>
   </div>
 
   <!-- Mobile Overlay -->
-  <div
-    *ngIf="sidebarOpen"
-    class="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-20 transition-opacity duration-300"
-    (click)="toggleSidebar()"
-  ></div>
+  <div *ngIf="sidebarOpen" class="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-20 transition-opacity duration-300"
+    (click)="toggleSidebar()"></div>
 
   <!-- Sidebar Toggle Button (Mobile) -->
   <button
-    class="lg:hidden fixed top-4 left-4 z-50 bg-teal-600 text-white p-3 rounded-full shadow-lg hover:bg-teal-700 transition-all duration-300"
-    (click)="toggleSidebar()"
-    aria-label="Toggle sidebar"
-  >
+    class="lg:hidden fixed top-4 left-4 z-50 bg-gradient-to-r from-primary-600 to-secondary-600 text-white p-3 rounded-full shadow-lg hover:shadow-primary-500/50 hover:scale-110 transition-all duration-300"
+    (click)="toggleSidebar()" aria-label="Toggle sidebar">
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        [attr.d]="sidebarOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'"
-      ></path>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        [attr.d]="sidebarOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'"></path>
     </svg>
   </button>
 
   <!-- Main Content -->
   <div class="flex-1 p-8 lg:ml-72">
     <!-- Dashboard Section -->
-    <div
-      *ngIf="currentSection === 'dashboard'"
-      class="bg-white rounded-2xl shadow-xl p-8 transform transition-all hover:scale-101 duration-300"
-    >
+    <div *ngIf="currentSection === 'dashboard'" class="bg-white rounded-3xl shadow-lg p-8 border border-gray-100">
       <app-dashboard></app-dashboard>
     </div>
 
     <!-- User Management Section -->
-    <div
-      *ngIf="currentSection === 'users'"
-      class="bg-white rounded-2xl shadow-xl p-8 transform transition-all hover:scale-101 duration-300"
-    >
-      <h2 class="text-3xl font-extrabold text-teal-900 mb-6 font-['Poppins']">User Management</h2>
-      <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-teal-200">
-          <thead class="bg-gradient-to-r from-teal-600 to-blue-600 text-white">
+    <div *ngIf="currentSection === 'users'" class="bg-white rounded-3xl shadow-lg p-8 border border-gray-100">
+      <h2 class="text-3xl font-bold text-gray-900 mb-6">User Management</h2>
+      <div class="overflow-x-auto rounded-2xl border border-gray-200">
+        <table class="min-w-full">
+          <thead class="bg-gradient-to-r from-primary-600 to-secondary-600">
             <tr>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">#</th>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Name</th>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Email</th>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Phone</th>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Actions</th>
+              <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">#</th>
+              <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">Name</th>
+              <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">Email</th>
+              <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">Phone</th>
+              <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">Actions</th>
             </tr>
           </thead>
-          <tbody class="bg-white divide-y divide-teal-100">
-            <tr *ngFor="let user of users; let i = index" class="hover:bg-teal-50 transition-colors duration-200">
-              <td class="px-6 py-4 whitespace-nowrap text-teal-900">{{ i + 1 }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-teal-900">{{ user.username }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-teal-900">{{ user.email }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-teal-900">{{ user.phone }}</td>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr *ngFor="let user of users; let i = index" class="hover:bg-gray-50 transition-colors duration-200">
+              <td class="px-6 py-4 whitespace-nowrap text-gray-900 font-medium">{{ i + 1 }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-900 font-medium">{{ user.username }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">{{ user.email }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">{{ user.phone }}</td>
               <td class="px-6 py-4 whitespace-nowrap space-x-2">
                 <button
-                  class="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 hover:shadow-[0_0_10px_rgba(45,212,191,0.6)] transition-all duration-200"
-                  (click)="openEditUserModal(user)"
-                >
+                  class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 font-medium"
+                  (click)="openEditUserModal(user)">
                   Edit
                 </button>
                 <button
-                  class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 hover:shadow-[0_0_10px_rgba(239,68,68,0.6)] transition-all duration-200"
-                  (click)="deleteUser(user.id)"
-                >
+                  class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200 font-medium"
+                  (click)="deleteUser(user.id)">
                   Delete
                 </button>
               </td>
@@ -154,43 +139,39 @@
     </div>
 
     <!-- Category Management Section -->
-    <div
-      *ngIf="currentSection === 'categories'"
-      class="bg-white rounded-2xl shadow-xl p-8 transform transition-all hover:scale-101 duration-300"
-    >
+    <div *ngIf="currentSection === 'categories'" class="bg-white rounded-3xl shadow-lg p-8 border border-gray-100">
       <div class="flex justify-between items-center mb-6">
-        <h2 class="text-3xl font-extrabold text-teal-900 font-['Poppins']">Category Management</h2>
+        <h2 class="text-3xl font-bold text-gray-900">Category Management</h2>
         <button
-          class="px-6 py-3 bg-teal-500 text-white rounded-lg hover:bg-teal-600 hover:shadow-[0_0_10px_rgba(45,212,191,0.6)] transition-all duration-200"
-          (click)="openAddCategoryModal()"
-        >
+          class="px-6 py-3 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-xl hover:shadow-lg hover:shadow-primary-500/25 transition-all duration-300 font-semibold flex items-center gap-2"
+          (click)="openAddCategoryModal()">
+          <i class="bi bi-plus-circle text-xl"></i>
           Add Category
         </button>
       </div>
-      <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-teal-200">
-          <thead class="bg-gradient-to-r from-teal-600 to-blue-600 text-white">
+      <div class="overflow-x-auto rounded-2xl border border-gray-200">
+        <table class="min-w-full">
+          <thead class="bg-gradient-to-r from-primary-600 to-secondary-600">
             <tr>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">#</th>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Name</th>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Actions</th>
+              <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">#</th>
+              <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">Name</th>
+              <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">Actions</th>
             </tr>
           </thead>
-          <tbody class="bg-white divide-y divide-teal-100">
-            <tr *ngFor="let category of categories; let i = index" class="hover:bg-teal-50 transition-colors duration-200">
-              <td class="px-6 py-4 whitespace-nowrap text-teal-900">{{ i + 1 }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-teal-900">{{ category.name }}</td>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr *ngFor="let category of categories; let i = index"
+              class="hover:bg-gray-50 transition-colors duration-200">
+              <td class="px-6 py-4 whitespace-nowrap text-gray-900 font-medium">{{ i + 1 }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-900 font-medium">{{ category.name }}</td>
               <td class="px-6 py-4 whitespace-nowrap space-x-2">
                 <button
-                  class="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 hover:shadow-[0_0_10px_rgba(45,212,191,0.6)] transition-all duration-200"
-                  (click)="openEditCategoryModal(category)"
-                >
+                  class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 font-medium"
+                  (click)="openEditCategoryModal(category)">
                   Edit
                 </button>
                 <button
-                  class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 hover:shadow-[0_0_10px_rgba(239,68,68,0.6)] transition-all duration-200"
-                  (click)="deleteCategory(category.id)"
-                >
+                  class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200 font-medium"
+                  (click)="deleteCategory(category.id)">
                   Delete
                 </button>
               </td>
@@ -201,81 +182,83 @@
     </div>
 
     <!-- Product Management Section -->
-    <div
-      *ngIf="currentSection === 'products'"
-      class="bg-white rounded-2xl shadow-xl p-8 transform transition-all hover:scale-101 duration-300"
-    >
+    <div *ngIf="currentSection === 'products'" class="bg-white rounded-3xl shadow-lg p-8 border border-gray-100">
       <div class="flex justify-between items-center mb-6">
-        <h2 class="text-3xl font-extrabold text-teal-900 font-['Poppins']">Product Management</h2>
+        <h2 class="text-3xl font-bold text-gray-900">Product Management</h2>
         <button
-          class="px-6 py-3 bg-teal-500 text-white rounded-lg hover:bg-teal-600 hover:shadow-[0_0_10px_rgba(45,212,191,0.6)] transition-all duration-200"
-          (click)="openAddProductModal()"
-        >
+          class="px-6 py-3 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-xl hover:shadow-lg hover:shadow-primary-500/25 transition-all duration-300 font-semibold flex items-center gap-2"
+          (click)="openAddProductModal()">
+          <i class="bi bi-plus-circle text-xl"></i>
           Add Product
         </button>
       </div>
       <div class="mb-6">
-        <label class="block text-sm font-semibold text-teal-900 mb-2">Search Products</label>
-        <input
-          type="text"
-          placeholder="Search by name or description..."
-          class="w-full px-4 py-3 border-2 border-teal-200 rounded-xl bg-white text-teal-900 focus:ring-4 focus:ring-teal-400 focus:border-teal-500 transition-all duration-200 shadow-sm"
-          [(ngModel)]="searchQuery"
-          (input)="onSearch()"
-        />
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Search Products</label>
+        <input type="text" placeholder="Search by name or description..."
+          class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl bg-white text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200"
+          [(ngModel)]="searchQuery" (input)="onSearch()" />
       </div>
       <div class="mb-6">
-        <label class="block text-sm font-semibold text-teal-900 mb-2">Select Category</label>
-        <select
-          id="categoryFilter"
-          class="w-full px-4 py-3 border-2 border-teal-200 rounded-xl bg-white text-teal-900 focus:ring-4 focus:ring-teal-400 focus:border-teal-500 transition-all duration-200 shadow-sm"
-          (change)="onCategoryChange($event)"
-        >
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Select Category</label>
+        <select id="categoryFilter"
+          class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl bg-white text-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200"
+          (change)="onCategoryChange($event)">
           <option value="">All Products</option>
           <option *ngFor="let category of categories" [value]="category.id">
             {{ category.name }}
           </option>
         </select>
       </div>
-      <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-teal-200">
-          <thead class="bg-gradient-to-r from-teal-600 to-blue-600 text-white">
+      <div class="overflow-x-auto rounded-2xl border border-gray-200">
+        <table class="min-w-full">
+          <thead class="bg-gradient-to-r from-primary-600 to-secondary-600">
             <tr>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">#</th>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Name</th>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Description</th>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Price</th>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Stock</th>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Image URL</th>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Actions</th>
+              <th
+                class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white border-b border-white/20">
+                #</th>
+              <th
+                class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white border-b border-white/20">
+                Name</th>
+              <th
+                class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white border-b border-white/20">
+                Description</th>
+              <th
+                class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white border-b border-white/20">
+                Price</th>
+              <th
+                class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white border-b border-white/20">
+                Stock</th>
+              <th
+                class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white border-b border-white/20">
+                Image URL</th>
+              <th
+                class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white border-b border-white/20">
+                Actions</th>
             </tr>
           </thead>
-          <tbody class="bg-white divide-y divide-teal-100">
-            <tr *ngFor="let product of filteredProducts; let i = index" class="hover:bg-teal-50 transition-colors duration-200">
-              <td class="px-6 py-4 whitespace-nowrap text-teal-900">{{ i + 1 }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-teal-900">{{ product.name }}</td>
-              <td class="px-6 py-4 text-teal-900">{{ product.description }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-teal-900">{{ product.price }} TND</td>
-              <td class="px-6 py-4 whitespace-nowrap text-teal-900">{{ product.stock }}</td>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr *ngFor="let product of filteredProducts; let i = index"
+              class="hover:bg-gray-50 transition-colors duration-200">
+              <td class="px-6 py-4 whitespace-nowrap text-gray-900 font-medium">{{ i + 1 }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-900 font-medium">{{ product.name }}</td>
+              <td class="px-6 py-4 text-gray-600">{{ product.description }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">{{ product.price }} TND</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">{{ product.stock }}</td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <a
-                  [href]="product.imageUrl"
-                  class="text-teal-500 hover:text-teal-700 hover:underline transition-colors duration-200"
-                >
+                <a [href]="product.imageUrl"
+                  class="text-primary-600 hover:text-primary-700 hover:underline transition-colors duration-200">
                   View Image
                 </a>
               </td>
               <td class="px-6 py-4 whitespace-nowrap space-x-2">
                 <button
-                  class="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 hover:shadow-[0_0_10px_rgba(45,212,191,0.6)] transition-all duration-200"
-                  (click)="openEditProductModal(product)"
-                >
+                  class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 font-medium"
+                  (click)="openEditProductModal(product)">
                   Edit
                 </button>
                 <button
-                  class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 hover:shadow-[0_0_10px_rgba(239,68,68,0.6)] transition-all duration-200"
-                  (click)="deleteProduct(product.id)"
-                >
+                  class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200 font-medium"
+                  (click)="deleteProduct(product.id)">
                   Delete
                 </button>
               </td>
@@ -286,67 +269,69 @@
     </div>
 
     <!-- Orders Management Section -->
-    <div
-      *ngIf="currentSection === 'orders'"
-      class="bg-white rounded-2xl shadow-xl p-8 transform transition-all hover:scale-101 duration-300"
-    >
+    <div *ngIf="currentSection === 'orders'" class="bg-white rounded-3xl shadow-lg p-8 border border-gray-100">
       <div class="flex justify-between items-center mb-6">
-        <h2 class="text-3xl font-extrabold text-teal-900 font-['Poppins']">Orders Management</h2>
+        <h2 class="text-3xl font-bold text-gray-900">Orders Management</h2>
       </div>
 
       <!-- Debugging Output -->
-      <div class="mb-4 text-teal-900">
+      <div class="mb-4 text-gray-600 text-sm">
         <p>Orders Count: {{ orders.length }}</p>
         <p>Loading: {{ isLoadingOrders ? 'Yes' : 'No' }}</p>
         <p>Error: {{ errorMessage || 'None' }}</p>
       </div>
 
       <!-- Loading and Error States -->
-      <div *ngIf="isLoadingOrders" class="text-center text-teal-900">
-        <p>Loading orders...</p>
+      <div *ngIf="isLoadingOrders" class="text-center text-gray-600 py-8">
+        <p class="text-lg">Loading orders...</p>
       </div>
-      <div *ngIf="!isLoadingOrders && errorMessage" class="text-red-500 text-center mb-4">
+      <div *ngIf="!isLoadingOrders && errorMessage" class="text-red-600 text-center mb-4 py-4">
         {{ errorMessage }}
       </div>
-      <div *ngIf="!isLoadingOrders && orders.length === 0 && !errorMessage" class="text-center text-teal-900">
-        <p>No orders available.</p>
+      <div *ngIf="!isLoadingOrders && orders.length === 0 && !errorMessage" class="text-center text-gray-600 py-8">
+        <p class="text-lg">No orders available.</p>
       </div>
 
       <!-- Orders Table -->
-      <div *ngIf="!isLoadingOrders && orders.length > 0" class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-teal-200">
-          <thead class="bg-gradient-to-r from-teal-600 to-blue-600 text-white">
+      <div *ngIf="!isLoadingOrders && orders.length > 0" class="overflow-x-auto rounded-2xl border border-gray-200">
+        <table class="min-w-full">
+          <thead class="bg-gradient-to-r from-primary-600 to-secondary-600">
             <tr>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">#</th>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Order ID</th>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">User ID</th>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Total Price</th>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Status</th>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Address</th>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Actions</th>
+              <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">
+                #</th>
+              <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">
+                Order ID</th>
+              <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">
+                User ID</th>
+              <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">
+                Total Price</th>
+              <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">
+                Status</th>
+              <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">
+                Address</th>
+              <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">
+                Actions</th>
             </tr>
           </thead>
-          <tbody class="bg-white divide-y divide-teal-100">
-            <tr *ngFor="let order of orders; let i = index" class="hover:bg-teal-50 transition-colors duration-200">
-              <td class="px-6 py-4 whitespace-nowrap text-teal-900">{{ i + 1 }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-teal-900">{{ order.id }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-teal-900">{{ order.userId }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-teal-900">{{ order.totalPrice }} TND</td>
-              <td class="px-6 py-4 whitespace-nowrap text-teal-900">{{ order.status }}</td>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr *ngFor="let order of orders; let i = index" class="hover:bg-gray-50 transition-colors duration-200">
+              <td class="px-6 py-4 whitespace-nowrap text-gray-900 font-medium">{{ i + 1 }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-900 font-medium">{{ order.id }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">{{ order.userId }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">{{ order.totalPrice }} TND</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">{{ order.status }}</td>
               <td class="px-6 py-4 whitespace-nowrap">
-            
+
               </td>
               <td class="px-6 py-4 whitespace-nowrap space-x-2">
                 <button
-                  class="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 hover:shadow-[0_0_10px_rgba(45,212,191,0.6)] transition-all duration-200"
-                  (click)="openEditOrderModal(order)"
-                >
+                  class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 font-medium"
+                  (click)="openEditOrderModal(order)">
                   Edit
                 </button>
                 <button
-                  class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 hover:shadow-[0_0_10px_rgba(239,68,68,0.6)] transition-all duration-200"
-                  (click)="deleteOrder(order.id)"
-                >
+                  class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200 font-medium"
+                  (click)="deleteOrder(order.id)">
                   Delete
                 </button>
               </td>
@@ -357,87 +342,59 @@
     </div>
 
     <!-- User Modal -->
-    <div
-      *ngIf="userModalVisible"
-      class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 animate-[fadeIn_0.3s_ease-out]"
-    >
+    <div *ngIf="userModalVisible"
+      class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 animate-[fadeIn_0.3s_ease-out]">
       <div
-        class="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl transform transition-all scale-95 animate-[scaleIn_0.3s_ease-out]"
-      >
+        class="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl transform transition-all scale-95 animate-[scaleIn_0.3s_ease-out]">
         <div class="flex justify-between items-center mb-6">
           <h3 class="text-2xl font-bold text-teal-900 font-['Poppins']">
             {{ isEditMode ? 'Edit User' : 'Add User' }}
           </h3>
-          <button
-            class="text-teal-500 hover:text-teal-700 transition-colors duration-300 text-2xl"
-            (click)="closeUserModal()"
-            aria-label="Close user modal"
-          >
+          <button class="text-teal-500 hover:text-teal-700 transition-colors duration-300 text-2xl"
+            (click)="closeUserModal()" aria-label="Close user modal">
             ×
           </button>
         </div>
         <form [formGroup]="userForm" (ngSubmit)="updateUser()">
           <div class="mb-4">
             <label class="block text-sm font-semibold text-teal-900 mb-2" for="username">Username</label>
-            <input
-              id="username"
-              formControlName="username"
-              type="text"
+            <input id="username" formControlName="username" type="text"
               class="w-full px-4 py-3 border-2 border-teal-200 rounded-xl focus:ring-4 focus:ring-teal-400 focus:border-teal-500 transition-all duration-200"
-              [ngClass]="{'border-red-500': userForm.get('username')?.invalid && userForm.get('username')?.touched}"
-            />
-            <p
-              *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched"
-              class="text-red-500 text-xs mt-1"
-            >
+              [ngClass]="{'border-red-500': userForm.get('username')?.invalid && userForm.get('username')?.touched}" />
+            <p *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched"
+              class="text-red-500 text-xs mt-1">
               Username is required and must be at least 3 characters.
             </p>
           </div>
           <div class="mb-4">
             <label class="block text-sm font-semibold text-teal-900 mb-2" for="email">Email</label>
-            <input
-              id="email"
-              formControlName="email"
-              type="email"
+            <input id="email" formControlName="email" type="email"
               class="w-full px-4 py-3 border-2 border-teal-200 rounded-xl focus:ring-4 focus:ring-teal-400 focus:border-teal-500 transition-all duration-200"
-              [ngClass]="{'border-red-500': userForm.get('email')?.invalid && userForm.get('email')?.touched}"
-            />
-            <p
-              *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched"
-              class="text-red-500 text-xs mt-1"
-            >
+              [ngClass]="{'border-red-500': userForm.get('email')?.invalid && userForm.get('email')?.touched}" />
+            <p *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched"
+              class="text-red-500 text-xs mt-1">
               Valid email is required.
             </p>
           </div>
           <div class="mb-4">
             <label class="block text-sm font-semibold text-teal-900 mb-2" for="phone">Phone</label>
-            <input
-              id="phone"
-              formControlName="phone"
-              type="text"
+            <input id="phone" formControlName="phone" type="text"
               class="w-full px-4 py-3 border-2 border-teal-200 rounded-xl focus:ring-4 focus:ring-teal-400 focus:border-teal-500 transition-all duration-200"
-              [ngClass]="{'border-red-500': userForm.get('phone')?.invalid && userForm.get('phone')?.touched}"
-            />
-            <p
-              *ngIf="userForm.get('phone')?.invalid && userForm.get('phone')?.touched"
-              class="text-red-500 text-xs mt-1"
-            >
+              [ngClass]="{'border-red-500': userForm.get('phone')?.invalid && userForm.get('phone')?.touched}" />
+            <p *ngIf="userForm.get('phone')?.invalid && userForm.get('phone')?.touched"
+              class="text-red-500 text-xs mt-1">
               Phone must be a 10-digit number.
             </p>
           </div>
           <div class="flex justify-end space-x-2">
-            <button
-              type="button"
+            <button type="button"
               class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition-all duration-200"
-              (click)="closeUserModal()"
-            >
+              (click)="closeUserModal()">
               Cancel
             </button>
-            <button
-              type="submit"
+            <button type="submit"
               class="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 hover:shadow-[0_0_10px_rgba(45,212,191,0.6)] transition-all duration-200"
-              [disabled]="userForm.invalid"
-            >
+              [disabled]="userForm.invalid">
               {{ isEditMode ? 'Update' : 'Add' }}
             </button>
           </div>
@@ -446,55 +403,39 @@
     </div>
 
     <!-- Category Modal -->
-    <div
-      *ngIf="categoryModalVisible"
-      class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 animate-[fadeIn_0.3s_ease-out]"
-    >
+    <div *ngIf="categoryModalVisible"
+      class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 animate-[fadeIn_0.3s_ease-out]">
       <div
-        class="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl transform transition-all scale-95 animate-[scaleIn_0.3s_ease-out]"
-      >
+        class="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl transform transition-all scale-95 animate-[scaleIn_0.3s_ease-out]">
         <div class="flex justify-between items-center mb-6">
           <h3 class="text-2xl font-bold text-teal-900 font-['Poppins']">
             {{ isEditMode ? 'Edit Category' : 'Add Category' }}
           </h3>
-          <button
-            class="text-teal-500 hover:text-teal-700 transition-colors duration-300 text-2xl"
-            (click)="closeCategoryModal()"
-            aria-label="Close category modal"
-          >
+          <button class="text-teal-500 hover:text-teal-700 transition-colors duration-300 text-2xl"
+            (click)="closeCategoryModal()" aria-label="Close category modal">
             ×
           </button>
         </div>
         <form [formGroup]="categoryForm" (ngSubmit)="saveCategory()">
           <div class="mb-4">
             <label class="block text-sm font-semibold text-teal-900 mb-2" for="categoryName">Category Name</label>
-            <input
-              id="categoryName"
-              formControlName="name"
-              type="text"
+            <input id="categoryName" formControlName="name" type="text"
               class="w-full px-4 py-3 border-2 border-teal-200 rounded-xl focus:ring-4 focus:ring-teal-400 focus:border-teal-500 transition-all duration-200"
-              [ngClass]="{'border-red-500': categoryForm.get('name')?.invalid && categoryForm.get('name')?.touched}"
-            />
-            <p
-              *ngIf="categoryForm.get('name')?.invalid && categoryForm.get('name')?.touched"
-              class="text-red-500 text-xs mt-1"
-            >
+              [ngClass]="{'border-red-500': categoryForm.get('name')?.invalid && categoryForm.get('name')?.touched}" />
+            <p *ngIf="categoryForm.get('name')?.invalid && categoryForm.get('name')?.touched"
+              class="text-red-500 text-xs mt-1">
               Category name is required and must be at least 3 characters.
             </p>
           </div>
           <div class="flex justify-end space-x-2">
-            <button
-              type="button"
+            <button type="button"
               class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition-all duration-200"
-              (click)="closeCategoryModal()"
-            >
+              (click)="closeCategoryModal()">
               Cancel
             </button>
-            <button
-              type="submit"
+            <button type="submit"
               class="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 hover:shadow-[0_0_10px_rgba(45,212,191,0.6)] transition-all duration-200"
-              [disabled]="categoryForm.invalid"
-            >
+              [disabled]="categoryForm.invalid">
               {{ isEditMode ? 'Update' : 'Add' }}
             </button>
           </div>
@@ -503,138 +444,94 @@
     </div>
 
     <!-- Product Modal -->
-    <div
-      *ngIf="productModalVisible"
-      class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 animate-[fadeIn_0.3s_ease-out]"
-    >
+    <div *ngIf="productModalVisible"
+      class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 animate-[fadeIn_0.3s_ease-out]">
       <div
-        class="bg-white rounded-2xl p-8 max-w-lg w-full shadow-2xl transform transition-all scale-95 animate-[scaleIn_0.3s_ease-out]"
-      >
+        class="bg-white rounded-2xl p-8 max-w-lg w-full shadow-2xl transform transition-all scale-95 animate-[scaleIn_0.3s_ease-out]">
         <div class="flex justify-between items-center mb-6">
           <h3 class="text-2xl font-bold text-teal-900 font-['Poppins']">
             {{ isEditMode ? 'Edit Product' : 'Add Product' }}
           </h3>
-          <button
-            class="text-teal-500 hover:text-teal-700 transition-colors duration-300 text-2xl"
-            (click)="closeProductModal()"
-            aria-label="Close product modal"
-          >
+          <button class="text-teal-500 hover:text-teal-700 transition-colors duration-300 text-2xl"
+            (click)="closeProductModal()" aria-label="Close product modal">
             ×
           </button>
         </div>
         <form [formGroup]="productForm" (ngSubmit)="saveProduct()">
           <div class="mb-4">
             <label class="block text-sm font-semibold text-teal-900 mb-2" for="productName">Product Name</label>
-            <input
-              id="productName"
-              formControlName="name"
-              type="text"
+            <input id="productName" formControlName="name" type="text"
               class="w-full px-4 py-3 border-2 border-teal-200 rounded-xl focus:ring-4 focus:ring-teal-400 focus:border-teal-500 transition-all duration-200"
-              [ngClass]="{'border-red-500': productForm.get('name')?.invalid && productForm.get('name')?.touched}"
-            />
-            <p
-              *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched"
-              class="text-red-500 text-xs mt-1"
-            >
+              [ngClass]="{'border-red-500': productForm.get('name')?.invalid && productForm.get('name')?.touched}" />
+            <p *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched"
+              class="text-red-500 text-xs mt-1">
               Product name is required and must be at least 3 characters.
             </p>
           </div>
           <div class="mb-4">
             <label class="block text-sm font-semibold text-teal-900 mb-2" for="description">Description</label>
-            <textarea
-              id="description"
-              formControlName="description"
+            <textarea id="description" formControlName="description"
               class="w-full px-4 py-3 border-2 border-teal-200 rounded-xl focus:ring-4 focus:ring-teal-400 focus:border-teal-500 transition-all duration-200"
-              [ngClass]="{'border-red-500': productForm.get('description')?.invalid && productForm.get('description')?.touched}"
-            ></textarea>
-            <p
-              *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched"
-              class="text-red-500 text-xs mt-1"
-            >
+              [ngClass]="{'border-red-500': productForm.get('description')?.invalid && productForm.get('description')?.touched}"></textarea>
+            <p *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched"
+              class="text-red-500 text-xs mt-1">
               Description is required.
             </p>
           </div>
           <div class="mb-4">
             <label class="block text-sm font-semibold text-teal-900 mb-2" for="price">Price (TND)</label>
-            <input
-              id="price"
-              formControlName="price"
-              type="number"
+            <input id="price" formControlName="price" type="number"
               class="w-full px-4 py-3 border-2 border-teal-200 rounded-xl focus:ring-4 focus:ring-teal-400 focus:border-teal-500 transition-all duration-200"
-              [ngClass]="{'border-red-500': productForm.get('price')?.invalid && productForm.get('price')?.touched}"
-            />
-            <p
-              *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched"
-              class="text-red-500 text-xs mt-1"
-            >
+              [ngClass]="{'border-red-500': productForm.get('price')?.invalid && productForm.get('price')?.touched}" />
+            <p *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched"
+              class="text-red-500 text-xs mt-1">
               Price must be greater than 0.
             </p>
           </div>
           <div class="mb-4">
             <label class="block text-sm font-semibold text-teal-900 mb-2" for="stock">Stock</label>
-            <input
-              id="stock"
-              formControlName="stock"
-              type="number"
+            <input id="stock" formControlName="stock" type="number"
               class="w-full px-4 py-3 border-2 border-teal-200 rounded-xl focus:ring-4 focus:ring-teal-400 focus:border-teal-500 transition-all duration-200"
-              [ngClass]="{'border-red-500': productForm.get('stock')?.invalid && productForm.get('stock')?.touched}"
-            />
-            <p
-              *ngIf="productForm.get('stock')?.invalid && productForm.get('stock')?.touched"
-              class="text-red-500 text-xs mt-1"
-            >
+              [ngClass]="{'border-red-500': productForm.get('stock')?.invalid && productForm.get('stock')?.touched}" />
+            <p *ngIf="productForm.get('stock')?.invalid && productForm.get('stock')?.touched"
+              class="text-red-500 text-xs mt-1">
               Stock must be greater than 0.
             </p>
           </div>
           <div class="mb-4">
             <label class="block text-sm font-semibold text-teal-900 mb-2" for="imageUrl">Image URL</label>
-            <input
-              id="imageUrl"
-              formControlName="imageUrl"
-              type="text"
+            <input id="imageUrl" formControlName="imageUrl" type="text"
               class="w-full px-4 py-3 border-2 border-teal-200 rounded-xl focus:ring-4 focus:ring-teal-400 focus:border-teal-500 transition-all duration-200"
-              [ngClass]="{'border-red-500': productForm.get('imageUrl')?.invalid && productForm.get('imageUrl')?.touched}"
-            />
-            <p
-              *ngIf="productForm.get('imageUrl')?.invalid && productForm.get('imageUrl')?.touched"
-              class="text-red-500 text-xs mt-1"
-            >
+              [ngClass]="{'border-red-500': productForm.get('imageUrl')?.invalid && productForm.get('imageUrl')?.touched}" />
+            <p *ngIf="productForm.get('imageUrl')?.invalid && productForm.get('imageUrl')?.touched"
+              class="text-red-500 text-xs mt-1">
               Valid URL is required.
             </p>
           </div>
           <div class="mb-4">
             <label class="block text-sm font-semibold text-teal-900 mb-2" for="categoryId">Category</label>
-            <select
-              id="categoryId"
-              formControlName="categoryId"
+            <select id="categoryId" formControlName="categoryId"
               class="w-full px-4 py-3 border-2 border-teal-200 rounded-xl focus:ring-4 focus:ring-teal-400 focus:border-teal-500 transition-all duration-200"
-              [ngClass]="{'border-red-500': productForm.get('categoryId')?.invalid && productForm.get('categoryId')?.touched}"
-            >
+              [ngClass]="{'border-red-500': productForm.get('categoryId')?.invalid && productForm.get('categoryId')?.touched}">
               <option value="">Select Category</option>
               <option *ngFor="let category of categories" [value]="category.id">
                 {{ category.name }}
               </option>
             </select>
-            <p
-              *ngIf="productForm.get('categoryId')?.invalid && productForm.get('categoryId')?.touched"
-              class="text-red-500 text-xs mt-1"
-            >
+            <p *ngIf="productForm.get('categoryId')?.invalid && productForm.get('categoryId')?.touched"
+              class="text-red-500 text-xs mt-1">
               Category is required.
             </p>
           </div>
           <div class="flex justify-end space-x-2">
-            <button
-              type="button"
+            <button type="button"
               class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition-all duration-200"
-              (click)="closeProductModal()"
-            >
+              (click)="closeProductModal()">
               Cancel
             </button>
-            <button
-              type="submit"
+            <button type="submit"
               class="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 hover:shadow-[0_0_10px_rgba(45,212,191,0.6)] transition-all duration-200"
-              [disabled]="productForm.invalid"
-            >
+              [disabled]="productForm.invalid">
               {{ isEditMode ? 'Update' : 'Add' }}
             </button>
           </div>
@@ -643,57 +540,42 @@
     </div>
 
     <!-- Order Modal -->
-    <div
-      *ngIf="orderModalVisible"
-      class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 animate-[fadeIn_0.3s_ease-out]"
-    >
+    <div *ngIf="orderModalVisible"
+      class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 animate-[fadeIn_0.3s_ease-out]">
       <div
-        class="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl transform transition-all scale-95 animate-[scaleIn_0.3s_ease-out]"
-      >
+        class="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl transform transition-all scale-95 animate-[scaleIn_0.3s_ease-out]">
         <div class="flex justify-between items-center mb-6">
           <h3 class="text-2xl font-bold text-teal-900 font-['Poppins']">Edit Order Status</h3>
-          <button
-            class="text-teal-500 hover:text-teal-700 transition-colors duration-300 text-2xl"
-            (click)="closeOrderModal()"
-            aria-label="Close order modal"
-          >
+          <button class="text-teal-500 hover:text-teal-700 transition-colors duration-300 text-2xl"
+            (click)="closeOrderModal()" aria-label="Close order modal">
             ×
           </button>
         </div>
         <form [formGroup]="orderForm" (ngSubmit)="updateOrderStatus()">
           <div class="mb-4">
             <label class="block text-sm font-semibold text-teal-900 mb-2" for="status">Status</label>
-            <select
-              id="status"
-              formControlName="status"
+            <select id="status" formControlName="status"
               class="w-full px-4 py-3 border-2 border-teal-200 rounded-xl focus:ring-4 focus:ring-teal-400 focus:border-teal-500 transition-all duration-200"
-              [ngClass]="{'border-red-500': orderForm.get('status')?.invalid && orderForm.get('status')?.touched}"
-            >
+              [ngClass]="{'border-red-500': orderForm.get('status')?.invalid && orderForm.get('status')?.touched}">
               <option value="">Select Status</option>
               <option *ngFor="let status of orderStatuses" [value]="status">
                 {{ status }}
               </option>
             </select>
-            <p
-              *ngIf="orderForm.get('status')?.invalid && orderForm.get('status')?.touched"
-              class="text-red-500 text-xs mt-1"
-            >
+            <p *ngIf="orderForm.get('status')?.invalid && orderForm.get('status')?.touched"
+              class="text-red-500 text-xs mt-1">
               Status is required.
             </p>
           </div>
           <div class="flex justify-end space-x-2">
-            <button
-              type="button"
+            <button type="button"
               class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition-all duration-200"
-              (click)="closeOrderModal()"
-            >
+              (click)="closeOrderModal()">
               Cancel
             </button>
-            <button
-              type="submit"
+            <button type="submit"
               class="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 hover:shadow-[0_0_10px_rgba(45,212,191,0.6)] transition-all duration-200"
-              [disabled]="orderForm.invalid"
-            >
+              [disabled]="orderForm.invalid">
               Update
             </button>
           </div>
@@ -702,20 +584,14 @@
     </div>
 
     <!-- Address Modal -->
-    <div
-      *ngIf="addressModalVisible"
-      class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 animate-[fadeIn_0.3s_ease-out]"
-    >
+    <div *ngIf="addressModalVisible"
+      class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 animate-[fadeIn_0.3s_ease-out]">
       <div
-        class="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl transform transition-all scale-95 animate-[scaleIn_0.3s_ease-out]"
-      >
+        class="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl transform transition-all scale-95 animate-[scaleIn_0.3s_ease-out]">
         <div class="flex justify-between items-center mb-6">
           <h3 class="text-2xl font-bold text-teal-900 font-['Poppins']">Order Address</h3>
-          <button
-            class="text-teal-500 hover:text-teal-700 transition-colors duration-300 text-2xl"
-            (click)="closeAddressPopup()"
-            aria-label="Close address modal"
-          >
+          <button class="text-teal-500 hover:text-teal-700 transition-colors duration-300 text-2xl"
+            (click)="closeAddressPopup()" aria-label="Close address modal">
             ×
           </button>
         </div>
@@ -728,12 +604,25 @@
 
   <style>
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
+
     @keyframes scaleIn {
-      from { transform: scale(0.95); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+      from {
+        transform: scale(0.95);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
   </style>
 </div>

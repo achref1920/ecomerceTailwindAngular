@@ -147,7 +147,7 @@ export class AdminComponent implements OnInit {
     const userData = this.userForm.value;
 
     if (this.isEditMode && this.selectedUser) {
-      this.userService.updateUser(this.selectedUser.id, userData).subscribe({
+      this.userService.updateUser(this.selectedUser).subscribe({
         next: (response: ApiResponse<any>) => {
           if (response.status === true) {
             console.log(response.message);
